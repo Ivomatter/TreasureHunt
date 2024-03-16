@@ -1,23 +1,18 @@
 import json
 from getpass import getpass
-from game_state.game_engine import GameEngine
+from .game_engine import GameEngine
 
 
 class RequestProcessor:
     game_engine: GameEngine
 
     
-    def findUserFromDB():
+    def findUserFromDB(self, user):
         # TO IMPLEMENT
         pass
 
 
-    def addUserToDB():
-        # TO IMPLEMENT
-        pass
-
-
-    def addUserToDB():
+    def addUserToDB(self, user, password):
         # TO IMPLEMENT
         pass
 
