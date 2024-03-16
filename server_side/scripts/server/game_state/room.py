@@ -1,5 +1,5 @@
-from datetime import datetime
-from .player import Player
+from datetime import datetime, timedelta
+from player import Player
 from typing import Dict
 import random
 
@@ -9,6 +9,12 @@ class Room:
     end_time: datetime
     riddle_count: int
 
+
+    def __init__(self):
+        self.players = {}
+        self.objects = {"1":"sf", "2":"as", "3":"fd"}
+        self.riddle_count = 0
+        self.end_time = datetime.now()
 
     def create_permutation(self):
         perm = list(range(len(self.objects)))
@@ -34,7 +40,7 @@ class Room:
 
         return {
             'is_successful': True, 
-            'duration': self.get_current_duration(), 
+            'duration': str(self.get_current_duration()), 
             'riddle': self.get_player_riddle(playerID),
             'total_count': self.riddle_count
         }
@@ -42,14 +48,15 @@ class Room:
 
     def start_game(self, data):
         # data['images'] proccess and get {object : riddle} in objects
-        self.end_time = datetime.now() + data['duration']
-        self.riddle_count = data['treasure_count']
+        self.end_time = datetime.now() + timedelta(minutes = int(data['duration']))
+        self.riddle_count = int(data['treasure_count'])
 
+        self.add_player(data["user"])
         return self.get_player_riddle(data['user'])
 
 
     def guessed_right(self, data):
-        object = self.get_player_object(data['player'])
+        object = self.get_player_object(data['user'])
         if (object == data['image']): # here add function to analyze the image object
             return True
         else:
@@ -70,7 +77,7 @@ class Room:
 
 
     def hint(self, data):
-        return {'hint': ['_'] * len(self.get_player_object(data['user']))}
+        return {'hint': '_' * len(self.get_player_object(data['user']))}
 
 
     def leaderboard(self, _):
