@@ -8,8 +8,10 @@ class Player:
         self.points = points
         self.riddle_permutation = riddle_permutation
 
+
     def get_next_riddle(self):
-        self.current_riddle_index = self.current_riddle_index + 1
+        self.riddle_permutation = self.riddle_permutation[1:]
+        self.points = self.points + 1
         return 
 
 

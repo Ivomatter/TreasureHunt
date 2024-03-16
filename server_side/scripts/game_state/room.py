@@ -19,6 +19,10 @@ class Room:
     def get_player_riddle(self, playerID):
         return self.objects.values[self.players[playerID].riddle_permutation[0]]
     
+
+    def get_player_object(self, playerID):
+        return self.objects.keys[self.players[playerID].riddle_permutation[0]]
+    
     
     def get_current_duration(self):
         return self.end_time - datetime.datetime.now()    
@@ -44,12 +48,20 @@ class Room:
         return self.get_player_riddle(data['user'])
 
 
-    def get_player_score(self, player_id):
-        # Get the score of a specific player
-        if player_id in self.players:
-            return self.players[player_id].points
+    def guessed_right(self, data):
+        object = self.get_player_object(data['player'])
+        if (object == data['image']): # here add function to analyze the image object
+            return True
         else:
-            return -1
+            return False
+
+    def guess(self, data):
+        if (self.guessed_right(data)):
+            self.players[data['user']].get_next_riddle()
+
+            return {'is_correct': True, 'riddle': self.get_player_riddle(data['user'])}
+        else:
+            return {'is_correct': False} 
 
     def get_all_players_scores(self):
         # Get scores of all players

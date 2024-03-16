@@ -29,5 +29,5 @@ class GameEngine:
         return self.rooms[data['room']].start_game(data)
 
 
-    def find_room(self):
-        return 
+    def guess(self, data):
+        return self.rooms[data['room']].guess(data)

@@ -37,6 +37,10 @@ class RequestProcessor:
         self.game_engine.start_game(data)
 
 
+    def end_game(self, data):
+        self.game_engine.start_game(data)
+
+
     def create_game(self, data):
         roomID = self.game_engine.add_room(data)
         self.game_engine.add_player_to_room(roomID, data['user'])
@@ -61,14 +65,14 @@ class RequestProcessor:
                 return self.join_game(data)
             case 'start_game':
                 return self.start_game(data)
-            case 'login':
-                return self.login(data)
-            case 'register':
-                return self.register(data)
-            case 'make_guess':
-                self.start_game(data)
-            case 'start':
-                self.start_game(data)
+            case 'end_game':
+                return self.end_game(data)
+            case 'guess':
+                return self.guess(data)
+            case 'skip':
+                return self.skip(data)
+            case 'hint':
+                return self.hint(data)
             case _:
                 raise "request not permited" # return error on client side not here
 
