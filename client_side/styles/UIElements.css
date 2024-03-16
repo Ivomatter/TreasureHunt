@@ -1,26 +1,17 @@
 /* Image container                                                    */
 div.imgContainer {
-  max-width: 400px;
-  width: auto;
-  max-height: 100px;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  height: 150px;
   overflow: auto;
-  white-space: nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
-
-  background-color: red;
 }
 
-img.uploadImg {
-  display: inline-block;
-  max-width: 100px;
-  width: auto;
-  max-height: 100px;
-  height: auto;
+div.imgContainer > img {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
 }
 
 div.center {
@@ -32,11 +23,12 @@ label.fileFab {
   width: 60px;
   height: 60px;
   padding: 0px;
-  margin: auto;
+  margin: 10px auto;
   font-size: 50px;
   border-radius: 30px;
   background-color: var(--base-accent-color);
-  color: var(--base-color-text);
+  /* color: var(--base-color-text); */
+  color: var(--contrast-color-text);
 }
 
 label.fileFab:hover {
@@ -53,11 +45,12 @@ div.progressBar {
   display: block;
   box-sizing: border-box;
   width: 100%;
-  max-width: 400px;
+  max-width: var(--max-width-elements);
   height: 16px;
   background-color: var(--background-color);
   border: solid 1px var(--highlight-color);
   border-radius: 20px;
+  box-shadow: 0px 0px 3px var(--base-accent-color);
 }
 
 div.progressElem {
@@ -66,6 +59,7 @@ div.progressElem {
   height: 14px;
   background-color: var(--base-accent-color);
   border-radius: 8px;
+  box-shadow: 0px 0px 3px var(--base-accent-color);
 }
 
 /* Chip                                                               */
@@ -73,19 +67,25 @@ div.chip {
   display: inline;
   box-sizing: border-box;
   width: auto;
-  height: 20px;
+  height: 24px;
   font-size: 16px;
   /* margin: auto; */
   padding: 0px 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   background-color: var(--base-accent-color);
-  color: var(--base-color-text);
+  box-shadow: 0px 0px 3px var(--base-accent-color);
+  color: var(--contrast-color-text);
+
+  font-family: "Truculenta", sans-serif;
+  font-size: 16px;
+  font-optical-sizing: auto;
+  font-weight: 800;
 }
 
 /* Game content                                                       */
 div.gameContentTwoSide {
   width: 100%;
-  max-width: 400px;
+  max-width: var(--max-width-elements);
   margin: 10px 0px;
   display: flex;
   justify-content: space-between;
@@ -96,10 +96,14 @@ div.riddleBox {
   display: block;
   box-sizing: border-box;
   border-radius: 20px;
-  max-width: 400px;
+  max-width: var(--max-width-elements);
   margin: 10px;
   padding: 16px;
   background-color: var(--module-background-color);
+
+  font-family: "Merienda", cursive;
+  font-size: 20px;
+  font-weight: 300;
 }
 
 /* Game buttons                                                       */
@@ -113,7 +117,7 @@ div.stickBottom input[type="button"] {
   width: 48%;
   height: 40px;
   font-size: 14px;
-  padding: 10px 15px;
+  padding: 0px 15px;
   margin: 10px 0px;
   border-radius: 20px;
   border: none;
@@ -121,6 +125,13 @@ div.stickBottom input[type="button"] {
   color: var(--base-color-text);
   transition: border-radius 0.2s ease-in-out;
   cursor: pointer;
+  box-shadow: 0px 0px 3px var(--base-accent-color);
+  color: var(--contrast-color-text);
+
+  font-family: "Truculenta", sans-serif;
+  font-size: 22px;
+  font-optical-sizing: auto;
+  font-weight: 800;
 }
 
 div.stickBottom input[type="button"]:hover {
@@ -134,12 +145,11 @@ div.stickBottom {
   right: 0;
   left: 0;
   text-align: center;
-  max-width: 400px;
+  max-width: var(--max-width-elements);
   margin: auto;
 }
 
 /* Header                                                             */
-
 h1, h2 {
   color: var(--base-color-text);
 }
