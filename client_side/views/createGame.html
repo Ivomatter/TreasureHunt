@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Create game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/UIElements.css">
+  <link rel="stylesheet" href="../styles/UIControls.css">
+  <link rel="stylesheet" href="../styles/UIStyle.css">
+</head>
+
+<body>
+  <div class="centerContent">
+    <div class="heading-container">
+      <h1>Create game</h1>
+    </div>
+
+    <div class="login-form">
+      <form method="post">
+        <label>Username:</label>
+        <input type="text" id="username" name="username">
+        <label>Duration:</label>
+        <input type="text" id="duration" name="duration">
+        <label>Treasure count:</label>
+        <input type="text" id="treasureCount" name="treasureCount">
+        <label>Uploaded photos:</label>
+        <div class="imgContainer">
+          <img class="uploadImg" src="../img/img1.png" />
+          <img class="uploadImg" src="../img/img2.png" />
+          <img class="uploadImg" src="../img/img1.png" />
+          <img class="uploadImg" src="../img/img2.png" />
+          <img class="uploadImg" src="../img/img1.png" />
+          <img class="uploadImg" src="../img/img2.png" />
+        </div>
+        <div class="center">
+          <label class="fileFab"> + <input type="file" accept="image/*" />
+          </label>
+        </div>
+        <input type="button" value="Create game">
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>
