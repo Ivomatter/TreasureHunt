@@ -55,6 +55,7 @@ class Room:
         else:
             return False
 
+
     def guess(self, data):
         if (self.guessed_right(data)):
             self.players[data['user']].get_next_riddle()
@@ -62,65 +63,14 @@ class Room:
             return {'is_correct': True, 'riddle': self.get_player_riddle(data['user'])}
         else:
             return {'is_correct': False} 
+        
 
-    def get_all_players_scores(self):
-        # Get scores of all players
-        scores = {}
-        for player_id, player in self.players.items():
-            scores[player_id] = player.points
-        return scores
+    def skip(self, data):
+        self.players[data['user']].skip()
 
-    def get_result(self, scores):
-        sorted_players = sorted(scores.values(), key=lambda player: player.points, reverse=True)
-        return sorted_players
+        return {'riddle': self.get_player_riddle(data['user'])}
 
-    def get_player_current_riddle(self, player_id):
-        # Get the current riddle of a specific player
-        if player_id in self.players:
-            return self.players[player_id].current_riddle
-        else:
-            return -1
 
-    def get_next_riddle_for_player(self, player_id):
-        # Get the next riddle for a specific player
-        if player_id in self.players:
-            player = self.players[player_id]
-            return player.GetNextRiddle()
-        else:
-            return -1
+    def hint(self, data):
+        return {'hint': ['_'] * len(self.get_player_object(data['user']))}
 
-    def skip_riddle_for_player(self, player_id):
-        # Skip the current riddle for a specific player
-        if player_id in self.players:
-            player = self.players[player_id]
-            player.Skip()
-            return True
-        else:
-            return False
-
-    def give_hint_to_player(self, player_id):
-        # Provide a hint to a specific player
-        if player_id in self.players:
-            player = self.players[player_id]
-
-            try:
-                player.Hint()
-            except:
-                print("Error with hint")
-            
-            return True
-        else:
-            return False
-
-    def make_guess_for_player(self, player_id, guess):
-        # Make a guess for a specific player
-        if player_id in self.players:
-            player = self.players[player_id]
-            
-            try:
-                player.MakeGuess(guess)
-            except:
-                print("Error with making guess")
-            
-        else:
-            return -1

@@ -16,9 +16,9 @@ class Player:
 
 
     def skip(self):
-        # Logic to skip the current riddle
-        # deduct points
-        self.GetNextRiddle()  # For simplicity, skipping just moves to the next riddle
+        self.points = self.points - 1
+        self.get_next_riddle()
+
 
     def hint(self):
         # Logic to provide a hint for the current riddle

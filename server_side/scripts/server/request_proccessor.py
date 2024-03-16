@@ -38,7 +38,7 @@ class RequestProcessor:
 
 
     def end_game(self, data):
-        self.game_engine.start_game(data)
+        self.game_engine.end_game(data)
 
 
     def create_game(self, data):
@@ -51,10 +51,16 @@ class RequestProcessor:
         return self.game_engine.add_player_to_room(data['room'], data['user'])
 
 
-    def get_next_riddle(self, data):
-        user = self.find_user(data)
+    def guess(self, data):
+        self.game_engine.guess(data)
 
-        pass
+
+    def skip(self, data):
+        self.game_engine.skip(data)
+
+
+    def hint(self, data):
+        self.game_engine.hint(data)
 
 
     def process_request(self, data):

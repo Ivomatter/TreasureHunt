@@ -31,3 +31,11 @@ class GameEngine:
 
     def guess(self, data):
         return self.rooms[data['room']].guess(data)
+    
+
+    def skip(self, data):
+        return self.rooms[data['room']].skip(data)
+    
+
+    def hint(self, data):
+        return self.rooms[data['room']].hint(data)
