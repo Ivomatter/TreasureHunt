@@ -3,6 +3,10 @@ class Player:
     points: int
     riddle_permutation: list[int]
     
+    def __init__(self, player_id, points, riddle_permutation):
+        self.player_id = player_id
+        self.points = points
+        self.riddle_permutation = riddle_permutation
 
     def get_next_riddle(self):
         self.current_riddle_index = self.current_riddle_index + 1

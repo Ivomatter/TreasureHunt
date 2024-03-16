@@ -1,34 +1,48 @@
-import json
 from datetime import datetime
 from player import Player
 from typing import Dict
+import random
 
 class Room:
-    players: Dict[str : Player]
-    objects: Dict[str : str]
+    players: Dict[str, Player]
+    objects: Dict[str, str]
+    end_time: datetime
+    riddle_count: int
 
-    def load_json_objects(self, json_file_path):
-        # Load JSON objects from file
-        with open(json_file_path, 'r') as file:
-            self.json_objects = json.load(file)
 
-    def add_player(self, player):
-        # Add a player to the game
-        self.players[player.player_id] = player
+    def create_permutation(self):
+        perm = list[range(len(self.objects))]
+        perm = random.shuffle(perm)
+        return perm[:self.riddle_count]
 
-    def start_game(self):
-        # Start the game and record start time
-        self.start_time = datetime.now()
 
+    def get_player_riddle(self, playerID):
+        return self.objects.values[self.players[playerID].riddle_permutation[0]]
+    
+    
     def get_current_duration(self):
-        # Calculate and return elapsed time since game start
-        if self.start_time is not None:
-            return datetime.now() - self.start_time
-        else:
-            return -1
-        
-    def is_over(self):
-        return self.get_current_duration() >= 5
+        return self.end_time - datetime.datetime.now()    
+
+
+    def add_player(self, playerID):
+        player = Player(playerID, 0, self.create_permutation())
+        self.players[playerID] = player
+
+        return {
+            'is_successful': True, 
+            'duration': self.get_current_duration(), 
+            'riddle': self.get_player_riddle(playerID),
+            'total_count': self.riddle_count
+        }
+
+
+    def start_game(self, data):
+        # data['images'] proccess and get {object : riddle} in objects
+        self.end_time = datetime.datetime.now() + data['duration']
+        self.riddle_count = data['treasure_count']
+
+        return self.get_player_riddle(data['user'])
+
 
     def get_player_score(self, player_id):
         # Get the score of a specific player

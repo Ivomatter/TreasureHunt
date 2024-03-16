@@ -33,30 +33,18 @@ class RequestProcessor:
         self.addUserToDB(data['user'], data['password'])
 
 
-    def start_game(data):
-        pass
+    def start_game(self, data):
+        self.game_engine.start_game(data)
 
 
-    def find_user(data):
-        # data["user"], data["room"] find data for current room
-        pass
-
-
-    def check_image(self, data):
-        user = self.find_user(data)
-        # data["picture"] analyze and return if correct or not
-
-
-    def create_room(self, data):
+    def create_game(self, data):
         roomID = self.game_engine.add_room(data)
         self.game_engine.add_player_to_room(roomID, data['user'])
-        return roomID
+        return {'room': roomID}
     
 
-    def enter_room(self, data):
-        roomID = self.game_engine.add_room(data)
-        self.game_engine.add_player_to_room(roomID, data['user'])
-        return roomID
+    def join_game(self, data):
+        return self.game_engine.add_player_to_room(data['room'], data['user'])
 
 
     def get_next_riddle(self, data):
@@ -67,10 +55,12 @@ class RequestProcessor:
 
     def process_request(self, data):
         match data['request']:
-            case 'create_room':
-                return self.create_room(data)
-            case 'enter_room':
-                return self.enter_room(data)
+            case 'create_game':
+                return self.create_game(data)
+            case 'join_game':
+                return self.join_game(data)
+            case 'start_game':
+                return self.start_game(data)
             case 'login':
                 return self.login(data)
             case 'register':
@@ -81,3 +71,7 @@ class RequestProcessor:
                 self.start_game(data)
             case _:
                 raise "request not permited" # return error on client side not here
+
+
+    def get_response(self, data):
+        return json.dumps(self.process_request(data))
