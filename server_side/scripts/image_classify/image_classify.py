@@ -19,6 +19,5 @@ if __name__ == "__main__":
         if conf >= 0.5
     ]
 
-    ret = list(set(ret))
-
-    print(ret)
+    for x in list(set(ret)):
+        print(x)
