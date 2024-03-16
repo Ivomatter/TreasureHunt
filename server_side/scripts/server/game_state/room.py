@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from player import Player
+from .player import Player
 from typing import Dict
 import random
 

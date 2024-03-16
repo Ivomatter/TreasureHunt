@@ -1,6 +1,5 @@
 import json
-from getpass import getpass
-from game_engine import GameEngine
+from .game_engine import GameEngine
 
 
 class RequestProcessor:
@@ -60,7 +59,7 @@ class RequestProcessor:
             case 'hint':
                 return self.hint(data)
             case _:
-                raise "request not permited" # return error on client side not here
+                raise TypeError("request not permited") # return error on client side not here
 
 
     def get_response(self, data):
