@@ -1,0 +1,10 @@
+:root {
+  --main-font-family: Arial, sans-serif;
+
+  --background-color: rgb(243, 236, 255);
+  --module-background-color: rgb(193, 181, 250);
+  --base-accent-color: #007bff; /*button color*/
+  --base-color-text: white;
+  --highlight-color: rgb(27, 14, 103); /*element border*/
+  --highlight-color-focus: rgb(96, 86, 153); /*button hover*/
+}
