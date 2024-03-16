@@ -1,0 +1,9 @@
+[submodule "model_execution/llama.cpp"]
+	path = model_execution/llama.cpp
+	url = git@github.com:ggerganov/llama.cpp.git
+[submodule "model_execution/llava-cpp-server"]
+	path = model_execution/llava-cpp-server
+	url = git@github.com:trzy/llava-cpp-server.git
+[submodule "server_side/scripts/image_processing/llava-cpp-server"]
+	path = server_side/scripts/image_processing/llava-cpp-server
+	url = git@github.com:trzy/llava-cpp-server.git
