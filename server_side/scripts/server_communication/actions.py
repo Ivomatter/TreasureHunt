@@ -12,6 +12,11 @@ def addUserToDB():
     pass
 
 
+def addUserToDB():
+    # TO IMPLEMENT
+    pass
+
+
 def login(data):
     user_data = findUserFromDB(data['user'])
     if (user_data['password'] is data['password']):
@@ -34,12 +39,12 @@ def find_user(data):
 
 def check_image(data):
     user = find_user(data)
-    # data["picture"] analyze
-
-
-def get_prompt(data):
-    user = find_user(data)
     # data["picture"] analyze and return if correct or not
+
+
+def get_next_riddle(data):
+    user = find_user(data)
+
     pass
 
 
@@ -49,6 +54,10 @@ def process_request(data):
             return login(data)
         case 'register':
             return register(data)
+        case 'start':
+            start_game(data)
+        case 'make_guess':
+            start_game(data)
         case 'start':
             start_game(data)
         case _:

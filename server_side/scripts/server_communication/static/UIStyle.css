@@ -1,0 +1,12 @@
+:root {
+  --main-bg-color: brown;
+  
+  --main-font-family: Arial, sans-serif;
+
+  --background-color: rgb(84, 41, 158);
+  --module-background-color: rgb(193, 181, 250);
+  --base-accent-color: #007bff;
+  --base-color-text: white;
+  --highlight-color: rgb(27, 14, 103);
+  --highlight-color-focus: rgb(98, 83, 184);
+}

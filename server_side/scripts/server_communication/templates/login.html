@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login Form</title>
+  <!-- <link rel="stylesheet" href="./UIStyle.css">
+  <link rel="stylesheet" href="./UIControls.css"> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='UIStyle.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='UIControls.css') }}">
+</head>
+
+<body>
+  <h1>Login Form</h1>
+  <div class="login-form">
+    <form method="post">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+      <input type="button" value="Login">
+    </form>
+  </div>
+
+</body>
+
+</html>
