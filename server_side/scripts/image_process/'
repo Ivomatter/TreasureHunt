@@ -5,7 +5,7 @@ class ImageClassifier():
     def __init__(self) -> None:
         self.model = YOLO('yolov8n.pt')
 
-    def get_objects(self, img_path, req_perc=0.1):
+    def get_objects(self, img_path):
         results = self.model(img_path, verbose=False) 
 
         classes = results[0].boxes.cls.cpu().tolist() 
@@ -20,13 +20,11 @@ class ImageClassifier():
         ret = [
             results[0].names[int(cls)]
             for conf, cls, box in zip(confs, classes, boxes)
-            if conf >= 0.5 and get_percentage(box) >= req_perc
+            if conf >= 0.5 and get_percentage(box) >= 0.1
         ]
 
         return list(set(ret))
 
     def compare_guess(self, img_path, guess):
-        objects = self.get_objects(img_path, 0.2)
+        objects = self.get_objects(img_path)
         return guess in objects
-
-__all__ = ["ImageClassifier"]

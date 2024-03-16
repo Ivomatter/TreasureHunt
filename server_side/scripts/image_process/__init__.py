@@ -1,9 +1,37 @@
+from ultralytics import YOLO
+import imagesize
 import subprocess
-import argparse
 import os
 from openai import OpenAI
 
-from image_classify import ImageClassifier
+class ImageClassifier():
+    def __init__(self) -> None:
+        self.model = YOLO('yolov8n.pt')
+
+    def get_objects(self, img_path, req_perc=0.1):
+        results = self.model(img_path, verbose=False) 
+
+        classes = results[0].boxes.cls.cpu().tolist() 
+        confs = results[0].boxes.conf.float().cpu().tolist()
+        boxes = results[0].boxes.xywh.float()
+
+        width, height = imagesize.get(img_path)
+
+        def get_percentage(box):
+            return (box[2] * box[3]) / (width * height)
+
+        ret = [
+            results[0].names[int(cls)]
+            for conf, cls, box in zip(confs, classes, boxes)
+            if conf >= 0.5 and get_percentage(box) >= req_perc
+        ]
+
+        return list(set(ret))
+
+    def compare_guess(self, img_path, guess):
+        objects = self.get_objects(img_path, 0.2)
+        return guess in objects
+
 
 SYSTEM_PROMPT = f"""
 \nYou are a helpful, respectful and concise assistant.\
@@ -14,6 +42,7 @@ Here is an example answer you could give for a flower described as standing in t
 \"Dressed in pink, \n I sway in the breeze, Amidst a sea of green, my beauty never cease. \n What am I?\".\
 """
 
+
 def USER_PROMPT(obj):
     return f"""
 Create a riddle for a {obj}. \
@@ -21,13 +50,12 @@ THE REPLY SHOULD ONLY CONTAIN THE RIDDLE!\
 You are in a large pipeline, so you should only reply with the answer riddle in quotes.\
 """
 
+
 def LOCAL_PROMPT(obj):
     return f"""
 [INST]<<SYS>>{SYSTEM_PROMPT}<</SYS>>{USER_PROMPT(obj)}[/INST]
 """
 
-def classify_image(img):
-    return ImageClassifier().get_objects(img)
 
 def create_riddle(obj, mode):
     if mode == 'mock':
@@ -65,31 +93,26 @@ def create_riddle(obj, mode):
         LOCAL_PROMPT(obj),
         '--no-display-prompt'
     ], stdout=subprocess.PIPE)
-    out, err = process.communicate()
+    out = process.communicate()[0]
 
     return out.decode('ascii').strip()
 
-def main():
-    parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--img', type=str, help='image source')
-    parser.add_argument('--mode', type=str, help='is it mode', default="chat-gpt")
-    args = parser.parse_args()
 
-    img = args.img
+def create_riddle_all(images, mode):
+    objects = list(set([
+        obj
+        for img in images
+        for obj in ImageClassifier().get_objects(img)
+    ]))
 
-    if img is None:
-        print("No image source given")
-        return
+    ret = [
+        { 
+            "name": obj,
+            "riddle": create_riddle(obj, mode) 
+        }
+        for obj in objects
+    ]
 
-    img = os.path.abspath(img)
-    
-    objects = classify_image(img)
+    return ret
 
-    ret = []
-    for obj in objects:
-        ret.append({ "name": obj, "riddle": create_riddle(obj, args.mode) })
-
-    print(ret)
-
-if __name__ == "__main__":
-    main()
+__all__ = ["ImageClassifier", "create_riddle_all"]
