@@ -1,8 +1,17 @@
 Submodule server_side/scripts/image_processing/llava-cpp-server contains modified content
 diff --git a/server_side/scripts/image_processing/llava-cpp-server/llava_server.cpp b/server_side/scripts/image_processing/llava-cpp-server/llava_server.cpp
-index fe13c7e..9afd4b2 100644
+index fe13c7e..9c3552f 100644
 --- a/server_side/scripts/image_processing/llava-cpp-server/llava_server.cpp
 +++ b/server_side/scripts/image_processing/llava-cpp-server/llava_server.cpp
+@@ -236,7 +236,7 @@ int main(int argc, char ** argv)
+     gpt_params params;
+ 
+     std::string hostname = "localhost";
+-    int port = 8080;
++    int port = 6000;
+     bool enable_http_logging = false;
+     if (!parse_command_line(argc, argv, params, hostname, port, enable_http_logging))
+     {
 @@ -265,25 +265,24 @@ int main(int argc, char ** argv)
          return 1;
      }
