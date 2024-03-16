@@ -3,6 +3,8 @@ import argparse
 import os
 from openai import OpenAI
 
+from image_classify import ImageClassifier
+
 SYSTEM_PROMPT = f"""
 \nYou are a helpful, respectful and concise assistant.\
 You are to be deployed in a big pipeline.\
@@ -25,10 +27,7 @@ def LOCAL_PROMPT(obj):
 """
 
 def classify_image(img):
-    process = subprocess.Popen(['python3', 'image_classify/image_classify.py', '--img', img], stdout=subprocess.PIPE)
-    out = process.communicate()[0]
-    out = out.decode('ascii').strip().split('\n')
-    return out
+    return ImageClassifier().get_objects(img)
 
 def create_riddle(obj, mode):
     if mode == 'mock':
