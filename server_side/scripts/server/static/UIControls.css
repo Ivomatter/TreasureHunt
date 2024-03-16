@@ -1,16 +1,27 @@
 body {
   font-family: var(--main-font-family);
   background-color: var(--background-color);
+  align-items: center;
+
+  background: rgb(2, 0, 36);
+  background: linear-gradient(10deg,
+      rgb(20, 10, 50) 0%,
+      rgb(20, 10, 50) 40%,
+      rgb(30, 20, 60) 41%,
+      rgb(30, 20, 60) 60%,
+      rgb(40, 30, 70) 61%,
+      rgb(40, 30, 70) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .login-form {
-  max-width: 400px;
+  max-width: var(--max-width-elements);
   width: auto;
   margin: 0 auto;
   padding: 20px;
   background-color: var(--module-background-color);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 5, 0, 0.1);
 }
 
 .login-form label {
@@ -39,26 +50,39 @@ form input[type="password"]:focus {
 }
 
 form input[type="button"] {
-  background-color: var(--base-accent-color);
-  color: var(--base-color-text);
-  border: none;
-  border-radius: 20px;
-  height: 40px;
-  cursor: pointer;
-
-
-
   box-sizing: border-box;
   width: 100%;
   height: 40px;
   font-size: 14px;
-  padding: 10px 15px;
+  padding: 0px 15px;
   margin: 10px 0px;
-  border: 2px solid var(--highlight-color);
   border-radius: 20px;
+  border: none;
+  background-color: var(--base-accent-color);
+  color: var(--contrast-color-text);
   transition: border-radius 0.2s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0px 0px 3px var(--base-accent-color);
+
+  font-family: "Truculenta", sans-serif;
+  font-size: 22px;
+  font-optical-sizing: auto;
+  font-weight: 800;
 }
 
-.login-form input[type="submit"]:hover {
-  background-color: #0056b3;
+form input[type="button"]:hover {
+  color: var(--base-color-text);
+  background-color: var(--highlight-color-focus);
+}
+
+.heading-container {
+  text-align: center;
+  width: auto;
+  max-width: var(--max-width-elements);
+}
+
+.centerContent {
+  max-width: var(--max-width-elements);
+  width: auto;
+  margin: 0 auto;
 }

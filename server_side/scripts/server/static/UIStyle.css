@@ -1,12 +1,16 @@
 :root {
-  --main-bg-color: brown;
-  
   --main-font-family: Arial, sans-serif;
 
-  --background-color: rgb(84, 41, 158);
-  --module-background-color: rgb(193, 181, 250);
-  --base-accent-color: #007bff;
+  --max-width-elements: 500px;
+
+  --background-color: rgb(22, 12, 48);
+  --module-background-color: rgb(175, 160, 255);
+  --base-accent-color: rgb(250, 205, 70);
+  /*button color*/
   --base-color-text: white;
-  --highlight-color: rgb(27, 14, 103);
-  --highlight-color-focus: rgb(98, 83, 184);
+  --contrast-color-text: --background-color;
+  --highlight-color: rgb(100, 100, 50);
+  /*element border*/
+  --highlight-color-focus: rgb(95, 85, 150);
+  /*button hover*/
 }
