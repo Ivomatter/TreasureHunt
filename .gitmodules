@@ -1,0 +1,3 @@
+[submodule "server_side/scripts/image_processing/llava-cpp-server"]
+	path = server_side/scripts/image_processing/llava-cpp-server
+	url = git@github.com:trzy/llava-cpp-server.git
