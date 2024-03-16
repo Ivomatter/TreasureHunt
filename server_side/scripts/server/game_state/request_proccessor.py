@@ -1,44 +1,25 @@
 import json
 from getpass import getpass
-from .game_engine import GameEngine
+from game_engine import GameEngine
 
 
 class RequestProcessor:
     game_engine: GameEngine
 
+    def __init__(self):
+        self.game_engine = GameEngine()
     
-    def findUserFromDB(self, user):
-        # TO IMPLEMENT
-        pass
-
-
-    def addUserToDB(self, user, password):
-        # TO IMPLEMENT
-        pass
-
-
-    def login(self, data):
-        user_data = self.findUserFromDB(data['user'])
-        if (user_data['password'] is data['password']):
-            return user_data
-        return False
-
-
-    def register(self, data):
-        self.addUserToDB(data['user'], data['password'])
-
 
     def start_game(self, data):
-        self.game_engine.start_game(data)
+        return self.game_engine.start_game(data)
 
 
     def end_game(self, data):
-        self.game_engine.end_game(data)
+        return self.game_engine.leaderboard(data)
 
 
-    def create_game(self, data):
-        roomID = self.game_engine.add_room(data)
-        self.game_engine.add_player_to_room(roomID, data['user'])
+    def create_game(self, _):
+        roomID = self.game_engine.add_room()
         return {'room': roomID}
     
 
@@ -47,19 +28,19 @@ class RequestProcessor:
 
 
     def guess(self, data):
-        self.game_engine.guess(data)
+        return self.game_engine.guess(data)
 
 
     def skip(self, data):
-        self.game_engine.skip(data)
+        return self.game_engine.skip(data)
 
 
     def hint(self, data):
-        self.game_engine.hint(data)
+        return self.game_engine.hint(data)
 
 
     def leaderboard(self, data):
-        self.game_engine.leaderboard(data)
+        return self.game_engine.leaderboard(data)
 
 
     def process_request(self, data):
@@ -78,11 +59,21 @@ class RequestProcessor:
                 return self.skip(data)
             case 'hint':
                 return self.hint(data)
-            case 'leaderboard':
-                return self.leaderboard(data)
             case _:
                 raise "request not permited" # return error on client side not here
 
 
     def get_response(self, data):
-        return json.dumps(self.process_request(data))
+        return json.dumps(self.process_request(json.loads(data)))
+
+
+# rp = RequestProcessor()
+# json1 = rp.get_response("{\"request\": \"create_game\", \"user\": \"bili\"}")
+# room = json.loads(json1)["room"]
+# print(room)
+# print(rp.get_response(f"{{\"request\": \"start_game\", \"user\": \"bili\", \"room\":\"{room}\", \"treasure_count\":\"2\", \"duration\":\"2\", \"images\":\"[]\"}}"))
+# print(rp.get_response(f"{{\"request\": \"join_game\", \"user\": \"nasko\", \"room\":\"{room}\"}}"))
+# print(rp.get_response(f"{{\"request\": \"guess\", \"user\": \"nasko\", \"room\":\"{room}\", \"image\":\"1\"}}"))
+# print(rp.get_response(f"{{\"request\": \"hint\", \"user\": \"nasko\", \"room\":\"{room}\"}}"))
+# print(rp.get_response(f"{{\"request\": \"skip\", \"user\": \"nasko\", \"room\":\"{room}\"}}"))
+# print(rp.get_response(f"{{\"request\": \"end_game\", \"user\": \"nasko\", \"room\":\"{room}\"}}"))

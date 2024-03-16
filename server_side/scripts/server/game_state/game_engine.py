@@ -1,4 +1,4 @@
-from .room import Room
+from room import Room
 from typing import Dict
 
 import string
@@ -6,6 +6,10 @@ import random
 
 class GameEngine:
     rooms: Dict[str, Room]
+
+    def __init__(self):
+        self.rooms = {}
+
 
     @staticmethod
     def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
