@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Start</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles/UIControls.css">
+  <link rel="stylesheet" href="../styles/UIStyle.css">
+  <link rel="stylesheet" href="../styles/UIElements.css">
+  <link rel="stylesheet" href="../styles/UIStyleLeaderboard.css">
+</head>
+
+<body>
+  <div class="centerContent">
+    <div class="heading-container">
+      <h1>Leaderboard</h1>
+    </div>
+
+    <div class="login-form" id="leaderbordTable">
+    </div>
+  </div>
+</body>
+<script>
+  function displayData(dataList) {
+    let leaderbordTable = document.getElementById("leaderbordTable");
+    let counter = 1;
+    dataList.forEach(element => {
+      let leaderboardUser = document.createElement("div");
+      leaderboardUser.className = "leaderboardUser";
+      let leaderboardOrder = document.createElement("div");
+      leaderboardOrder.className = "leaderboardOrder";
+      leaderboardOrder.textContent = "#" + counter++;
+      let leaderboardName = document.createElement("div");
+      leaderboardName.className = "leaderboardName";
+      leaderboardName.textContent = element.name;
+      let leaderboardPoints = document.createElement("div");
+      leaderboardPoints.className = "leaderboardPoints";
+      leaderboardPoints.textContent = element.points + " ⭐";
+
+      leaderboardUser.appendChild(leaderboardOrder);
+      leaderboardUser.appendChild(leaderboardName);
+      leaderboardUser.appendChild(leaderboardPoints);
+      leaderbordTable.appendChild(leaderboardUser);
+    });
+
+    let leaderboardOrderList = document.getElementsByClassName("leaderboardOrder");
+    if (leaderboardOrderList.length > 0)
+      leaderboardOrderList[0].style.backgroundColor = "gold";
+    if (leaderboardOrderList.length > 1)
+      leaderboardOrderList[1].style.backgroundColor = "silver";
+    if (leaderboardOrderList.length > 2)
+      leaderboardOrderList[2].style.backgroundColor = "#CD7F32";
+
+  }
+
+  let dataset = [
+    { name: "kaka vaska", points: 101 },
+    { name: "kaka vaska", points: 101 },
+    { name: "kaka vaska", points: 101 },
+    { name: "kaka vaska", points: 101 },
+    { name: "kaka vaska", points: 101 }
+  ];
+
+  displayData(dataset);
+</script>
+
+</html>
