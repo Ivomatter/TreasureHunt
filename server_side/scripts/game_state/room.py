@@ -1,11 +1,11 @@
 import json
 from datetime import datetime
-from typing import Set
 from player import Player
 from typing import Dict
 
 class Room:
     players: Dict[str : Player]
+    objects: Dict[str : str]
 
     def load_json_objects(self, json_file_path):
         # Load JSON objects from file

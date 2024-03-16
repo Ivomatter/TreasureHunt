@@ -53,7 +53,7 @@ class RequestProcessor:
         return roomID
     
 
-    def create_room(self, data):
+    def enter_room(self, data):
         roomID = self.game_engine.add_room(data)
         self.game_engine.add_player_to_room(roomID, data['user'])
         return roomID
