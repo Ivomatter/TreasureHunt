@@ -1,15 +1,10 @@
-from flask import Flask
-from flask_cors import CORS
- 
+from flask import Flask, render_template
+
 app = Flask(__name__)
-CORS(app)
 
-# Members 
-
-@app.route('/members')
-def members():
-    return {"members": ["Member1", "Member2", "Member3"]}
-    
+@app.route('/')
+def index():
+    return render_template("login.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
