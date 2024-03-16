@@ -36,3 +36,7 @@ yarn-error.*
 
 #git
 .venv
+
+**/yolov8n.pt
+**/__pycache__
+server_side/scripts/word2riddle/models
