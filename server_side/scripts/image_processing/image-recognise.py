@@ -3,11 +3,21 @@ import requests
 import os
 from PIL import Image
 
-SYSTEM_PROMPT = "A chat between a pedantic human and an artificaial intelligence assistant. The assistant gives helpful answer to the human in a json format." 
-USER_PROMPT = "Find all main objects in the image. Serialize them in a json format. Print name and location for each of them. The format should be: [{name: location}*]. Each name should be a single word, use location as a description of the object in the scene."
+SYSTEM_PROMPT = """
+A chat between a human and an artificaial intelligence backend, so it should communicate in a json format.
+The assistant is a backend to a riddle game, it is given an image and should respond with riddle.
+"""
+
+USER_PROMPT = """
+Here is the image.
+You should pick an interesting object in the image and describe it using a riddle.
+You should try to keep it simple, the answer should be a single word. 
+An example for you is {"tree": "big, brown and standing on the grass"}.
+THE ANSWER SHOULD NOT APPEAR IN THE RIDDLE.
+"""
 
 def post_image(image_path):
-    url = "http://localhost:8080/llava"  # replace with your url
+    url = "http://localhost:8080/llava"  
 
     # Open the image file in binary mode
     with open(image_path, "rb") as image_file:
