@@ -1,5 +1,5 @@
 from datetime import datetime
-from player import Player
+from .player import Player
 from typing import Dict
 import random
 
@@ -11,21 +11,21 @@ class Room:
 
 
     def create_permutation(self):
-        perm = list[range(len(self.objects))]
-        perm = random.shuffle(perm)
+        perm = list(range(len(self.objects)))
+        random.shuffle(perm)
         return perm[:self.riddle_count]
 
 
     def get_player_riddle(self, playerID):
-        return self.objects.values[self.players[playerID].riddle_permutation[0]]
+        return list(self.objects.values())[self.players[playerID].riddle_permutation[0]]
     
 
     def get_player_object(self, playerID):
-        return self.objects.keys[self.players[playerID].riddle_permutation[0]]
+        return list(self.objects.keys())[self.players[playerID].riddle_permutation[0]]
     
     
     def get_current_duration(self):
-        return self.end_time - datetime.datetime.now()    
+        return self.end_time - datetime.now()    
 
 
     def add_player(self, playerID):
@@ -42,7 +42,7 @@ class Room:
 
     def start_game(self, data):
         # data['images'] proccess and get {object : riddle} in objects
-        self.end_time = datetime.datetime.now() + data['duration']
+        self.end_time = datetime.now() + data['duration']
         self.riddle_count = data['treasure_count']
 
         return self.get_player_riddle(data['user'])
@@ -73,5 +73,5 @@ class Room:
         return {'hint': ['_'] * len(self.get_player_object(data['user']))}
 
 
-    def leaderboard(self, data):
+    def leaderboard(self, _):
         return [{playerID: player.points} for playerID, player in self.players.items()] 
