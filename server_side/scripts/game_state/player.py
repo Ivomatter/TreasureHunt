@@ -1,15 +1,13 @@
 class Player:
-    def __init__(self, player_id):
-        # self.player_id = player_id
-        self.current_riddle = None
-        self.points = 0
-        self.current_riddle_number = 0
-
+    # self.player_id = player_id
+    # self.current_riddle = None
+    # self.points = 0
+    # self.current_riddle_number = 0
     def GetNextRiddle(self):
         # Logic to get the next riddle
         return 
 
-    def Skip(self):
+    def skip(self):
         # Logic to skip the current riddle
         # deduct points
         self.GetNextRiddle()  # For simplicity, skipping just moves to the next riddle

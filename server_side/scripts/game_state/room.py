@@ -1,11 +1,9 @@
 import json
 from datetime import datetime
+from typing import Set
 
-class GameState:
-    def __init__(self):
-        self.json_objects  # Dictionary to hold JSON objects
-        self.players  # Dictionary to hold players
-        self.start_time
+class Room:
+    players: Set[str]
 
     def load_json_objects(self, json_file_path):
         # Load JSON objects from file
