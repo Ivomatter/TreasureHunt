@@ -50,12 +50,19 @@
     });
 
     let leaderboardOrderList = document.getElementsByClassName("leaderboardOrder");
-    if (leaderboardOrderList.length > 0)
+    let leaderboardUserList = document.getElementsByClassName("leaderboardUser");
+    if (leaderboardOrderList.length > 0) {
       leaderboardOrderList[0].style.backgroundColor = "gold";
-    if (leaderboardOrderList.length > 1)
+      leaderboardUserList[0].classList.add("shine");
+    }
+    if (leaderboardOrderList.length > 1) {
       leaderboardOrderList[1].style.backgroundColor = "silver";
-    if (leaderboardOrderList.length > 2)
+      leaderboardUserList[1].classList.add("shine");
+    }
+    if (leaderboardOrderList.length > 2) {
       leaderboardOrderList[2].style.backgroundColor = "#CD7F32";
+      leaderboardUserList[2].classList.add("shine");
+    }
 
   }
 
