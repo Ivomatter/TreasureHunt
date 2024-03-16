@@ -59,7 +59,6 @@ class Room:
     def guess(self, data):
         if (self.guessed_right(data)):
             self.players[data['user']].get_next_riddle()
-
             return {'is_correct': True, 'riddle': self.get_player_riddle(data['user'])}
         else:
             return {'is_correct': False} 
@@ -67,10 +66,12 @@ class Room:
 
     def skip(self, data):
         self.players[data['user']].skip()
-
         return {'riddle': self.get_player_riddle(data['user'])}
 
 
     def hint(self, data):
         return {'hint': ['_'] * len(self.get_player_object(data['user']))}
 
+
+    def leaderboard(self, data):
+        return [{playerID: player.points} for playerID, player in self.players.items()] 

@@ -39,3 +39,7 @@ class GameEngine:
 
     def hint(self, data):
         return self.rooms[data['room']].hint(data)
+
+
+    def leaderboard(self, data):
+        return self.rooms[data['room']].leaderboard(data)

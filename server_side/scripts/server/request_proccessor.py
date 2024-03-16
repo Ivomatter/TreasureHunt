@@ -63,6 +63,10 @@ class RequestProcessor:
         self.game_engine.hint(data)
 
 
+    def leaderboard(self, data):
+        self.game_engine.leaderboard(data)
+
+
     def process_request(self, data):
         match data['request']:
             case 'create_game':
@@ -79,6 +83,8 @@ class RequestProcessor:
                 return self.skip(data)
             case 'hint':
                 return self.hint(data)
+            case 'leaderboard':
+                return self.leaderboard(data)
             case _:
                 raise "request not permited" # return error on client side not here
 
