@@ -92,7 +92,6 @@ function newGame(event) {
 			localStorage.setItem('room', data.room);
 			localStorage.setItem('user', usernameInput.value);
 			window.location.href = "/start_game";
-			console.log(localStorage.getItem('room'));
 		})
 		.catch((errdata) => {
 			console.log(errdata);
@@ -100,6 +99,7 @@ function newGame(event) {
 }
 
 function joinGame() {
+	localStorage.setItem('user', usernameInput.value);
 	window.location.href = "/join_game";
 }
 
