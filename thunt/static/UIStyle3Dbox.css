@@ -93,7 +93,6 @@ span.chestContent {
   display: inline-block;
 }
 
-
 @keyframes jumping {
   0% {
     transform: translateY(80px);
@@ -115,14 +114,15 @@ span.chestContentSideL {
   display: inline-block;
 }
 
-
 @keyframes jumpingL {
   0% {
     transform: translateY(80px);
   }
+
   50% {
     transform: translateY(-100px) translateX(-100px) scale(2);
   }
+
   100% {
     transform: translateY(80px);
   }
@@ -139,9 +139,11 @@ span.chestContentSideR {
   0% {
     transform: translateY(80px);
   }
+
   50% {
     transform: translateY(-100px) translateX(100px) scale(2);
   }
+
   100% {
     transform: translateY(80px);
   }
