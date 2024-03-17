@@ -69,31 +69,31 @@
   let currentRiddle = 1.0;
 
   function getSeconds(timeStr) {
-	const pattern = /^(\d+):(\d+):(\d+(.\d+)?)$/;
-	const match = timeStr.match(pattern);
+    const pattern = /^(\d+):(\d+):(\d+(.\d+)?)$/;
+    const match = timeStr.match(pattern);
 
-	if (!match) { return 0; }
+    if (!match) { return 0; }
 
-	const hours = parseInt(match[1]);
-	const minutes = parseInt(match[2]);
-	const seconds = parseFloat(match[3]);
+    const hours = parseInt(match[1]);
+    const minutes = parseInt(match[2]);
+    const seconds = parseFloat(match[3]);
 
-	const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-	return Math.floor(totalSeconds);
+    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    return Math.floor(totalSeconds);
   }
 
   function incrRiddle(newRiddle) {
-	++currentRiddle;
-	if (currentRiddle <= treasureCount) {
-	  riddleBox.innerText = newRiddle;
-	  updateUIProgress();
-	} else {
-	  window.location.href = "/leaderboard";
-	}
+    ++currentRiddle;
+    if (currentRiddle <= treasureCount) {
+      riddleBox.innerText = newRiddle;
+      updateUIProgress();
+    } else {
+      window.location.href = "/leaderboard";
+    }
   }
 
   function makeGuess(event) {
-	document.getElementById('fileInput').click();
+    document.getElementById('fileInput').click();
   }
 
   function uploadFile() {
@@ -105,29 +105,29 @@
       formData.append('user', user);
       formData.append('room', room);
 
-	  fetch('/backend/guess', {
-		method: 'POST',
-		body: formData
-	  })
-		.then((response) => response.json())
-		.then((data) => {
-		  if (data.is_correct) {
-			incrRiddle(data.riddle);
-		  }
-		})
-	}
+      fetch('/backend/guess', {
+        method: 'POST',
+        body: formData
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.is_correct) {
+            incrRiddle(data.riddle);
+          }
+        })
+    }
   }
 
   function skipRiddle(event) {
-	fetch("/backend/skip_riddle", {
-	  method: "POST",
-	  headers: { "Content-Type": "application/json; charset=UTF-8" },
-	  body: JSON.stringify({ request: "skip", user: user, room: room })
-	})
-	  .then(response => response.json())
-	  .then((data) => {
-		incrRiddle(data.riddle);
-	  })
+    fetch("/backend/skip_riddle", {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+      body: JSON.stringify({ request: "skip", user: user, room: room })
+    })
+      .then(response => response.json())
+      .then((data) => {
+        incrRiddle(data.riddle);
+      })
   }
 
   function updateUIProgress() {
@@ -136,24 +136,24 @@
   }
 
   function joinGame() {
-	fetch("/backend/join_game", {
-	  method: "POST",
-	  headers: { "Content-Type": "application/json; charset=UTF-8" },
-	  body: JSON.stringify({ request: "join_game", user: user, room: room })
-	})
-	  .then(response => response.json())
-	  .then((data) => {
-		riddleBox.innerText = data.riddle;
+    fetch("/backend/join_game", {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+      body: JSON.stringify({ request: "join_game", user: user, room: room })
+    })
+      .then(response => response.json())
+      .then((data) => {
+        riddleBox.innerText = data.riddle;
         duration = data.duration;
         treasureCount = data.total_count;
 
         time = getSeconds(duration);
         currentRiddle = 1.0;
 
-		updateUIProgress();
-		updateTimer();
-		startTimer();
-	  })
+        updateUIProgress();
+        updateTimer();
+        startTimer();
+      })
   }
 
   function gameJS() {
@@ -175,15 +175,15 @@
 
     timeLeft.innerText = `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-    if (time <= 0) {
-      clearInterval(countdown);
-      window.location.href = "/leaderboard";
-    } else {
-      time--;
+      if (time <= 0) {
+        clearInterval(countdown);
+        window.location.href = "/leaderboard";
+      } else {
+        time--;
+      }
     }
-  }
 
-  gameJS();
+    gameJS();
 
 </script>
 
