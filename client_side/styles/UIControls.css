@@ -61,17 +61,17 @@ form input[type="button"] {
   color: var(--contrast-color-text);
   transition: border-radius 0.2s ease-in-out;
   cursor: pointer;
-  box-shadow: 0px 0px 3px var(--base-accent-color);
-
+  
   font-family: "Truculenta", sans-serif;
   font-size: 22px;
   font-optical-sizing: auto;
   font-weight: 800;
+
+  transition: box-shadow 0.5s;
 }
 
 form input[type="button"]:hover {
-  color: var(--base-color-text);
-  background-color: var(--highlight-color-focus);
+  box-shadow: 0px 0px 10px var(--base-accent-color);
 }
 
 .heading-container {
