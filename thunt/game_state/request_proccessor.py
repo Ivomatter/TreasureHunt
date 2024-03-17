@@ -23,6 +23,7 @@ class RequestProcessor:
     
 
     def join_game(self, data):
+        print("Joining", data)
         return self.game_engine.add_player_to_room(data['room'], data['user'])
 
 

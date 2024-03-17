@@ -25,11 +25,17 @@ class Room:
 
 
     def get_player_riddle(self, playerID):
-        return self.objects[self.players[playerID].riddle_permutation[0]]["riddle"]
+        riddle_perm = self.players[playerID].riddle_permutation 
+        if len(riddle_perm) == 0:
+            return ""
+        return self.objects[riddle_perm[0]]["riddle"]
     
 
     def get_player_object(self, playerID):
-        return self.objects[self.players[playerID].riddle_permutation[0]]["name"]
+        riddle_perm = self.players[playerID].riddle_permutation 
+        if len(riddle_perm) == 0:
+            return ""
+        return self.objects[riddle_perm[0]]["name"]
     
     
     def get_current_duration(self):
@@ -58,6 +64,8 @@ class Room:
             self.riddle_count = len(self.objects)
         else:
             self.objects = self.objects[:self.riddle_count]
+
+        print(self.riddle_count, self.objects)
 
         self.add_player(data["user"])
         return {'riddle': self.get_player_riddle(data['user'])} 

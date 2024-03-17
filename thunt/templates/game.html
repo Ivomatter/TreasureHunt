@@ -69,7 +69,7 @@
 
   function incrRiddle(newRiddle) {
 	++currentRiddle;
-	if (currentRiddle < treasureCount) {
+	if (currentRiddle <= treasureCount) {
 	  riddleBox.innerText = newRiddle;
 	  updateUIProgress();
 	} else {
@@ -100,9 +100,6 @@
 			incrRiddle(data.riddle);
 		  }
 		})
-		.catch((errdata) => {
-		  console.log(errdata);
-		})
 	}
   }
 
@@ -116,14 +113,23 @@
 	  .then((data) => {
 		incrRiddle(data.riddle);
 	  })
-	  .catch((errdata) => {
-		console.log(errdata);
-	  });
   }
 
   function updateUIProgress() {
     progressElem.style.width = `${currentRiddle / treasureCount * 100}%`;
     riddlesSolvedCnt.innerText = `${currentRiddle}/${treasureCount}`;
+  }
+
+  function joinGame() {
+	fetch("/backend/join_game", {
+	  method: "POST",
+	  headers: { "Content-Type": "application/json; charset=UTF-8" },
+	  body: JSON.stringify({ request: "join_game", user: user, room: room })
+	})
+	  .then(response => response.json())
+	  .then((data) => {
+		riddleBox.innerText = data.riddle;
+	  })
   }
 
   function gameJS() {
@@ -132,9 +138,7 @@
     guessButton.addEventListener("click", makeGuess);
     skipButton.addEventListener("click", skipRiddle);
 
-    riddleBox.innerText = localStorage.getItem('riddle');
-    localStorage.removeItem('riddle');
-
+    joinGame();
     updateUIProgress();
     startTimer();
   }

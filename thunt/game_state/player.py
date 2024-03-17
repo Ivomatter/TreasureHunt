@@ -10,6 +10,8 @@ class Player:
 
 
     def get_next_riddle(self):
+        if len(self.riddle_permutation) == 0:
+            return
         self.riddle_permutation = self.riddle_permutation[1:]
         self.points = self.points + 1
         return 
