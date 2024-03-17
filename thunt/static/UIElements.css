@@ -4,36 +4,41 @@ div.imgContainer {
   flex-wrap: wrap;
   gap: 5px;
   height: 150px;
-  overflow: auto;
+  /* overflow: auto; */
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
-div.imgContainer > img {
+div.imgContainer::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+div.imgContainer>img {
   object-fit: cover;
   width: 100px;
   height: 100px;
   overflow: hidden;
 }
 
-div.center {
-  text-align: center;
-}
-
 label.fileFab {
   background-color: var(--highlight-color-focus);
-  width: 60px;
   height: 60px;
-  padding: 0px;
-  margin: 10px auto;
-  font-size: 50px;
-  border-radius: 30px;
+  width: 20px;
+  padding: 10px 30px;
+  margin: 10px 10px;
+  font-size: 45px;
+  border-radius: 20px;
   background-color: var(--base-accent-color);
-  /* color: var(--base-color-text); */
   color: var(--contrast-color-text);
+
+  transition: box-shadow 0.5s;
 }
 
 label.fileFab:hover {
-  font-size: 50px;
-  background-color: var(--highlight-color-focus);
+  box-shadow: 0px 0px 10px var(--base-accent-color);
 }
 
 input[type="file"] {
@@ -69,7 +74,6 @@ div.chip {
   width: auto;
   height: 24px;
   font-size: 16px;
-  /* margin: auto; */
   padding: 0px 10px;
   border-radius: 12px;
   background-color: var(--base-accent-color);
@@ -97,13 +101,32 @@ div.riddleBox {
   box-sizing: border-box;
   border-radius: 20px;
   max-width: var(--max-width-elements);
-  margin: 10px;
-  padding: 16px;
+  margin: 16px;
+  padding: 20px;
   background-color: var(--module-background-color);
 
   font-family: "Merienda", cursive;
   font-size: 20px;
   font-weight: 300;
+
+  transition: transform .3s;
+  perspective: 1000px;
+}
+
+div.riddleBox:hover {
+  transform: rotate3d(1, 0, 0, 10deg) scale(1.06);
+}
+
+div.riddleBox > * {
+  height: 100%;
+  width: 100%;
+  transition: transform .3s;
+  transition: text-shadow .2s;
+}
+
+div.riddleBox:hover > * {
+  transform: scale(1.05);
+  text-shadow: 0px 8px 3px gray;
 }
 
 /* Game buttons                                                       */
@@ -118,30 +141,29 @@ div.stickBottom input[type="button"] {
   height: 40px;
   font-size: 14px;
   padding: 0px 15px;
-  margin: 10px 0px;
+  margin: 5px 0px;
   border-radius: 20px;
   border: none;
   background-color: var(--base-accent-color);
-  color: var(--base-color-text);
-  transition: border-radius 0.2s ease-in-out;
-  cursor: pointer;
-  box-shadow: 0px 0px 3px var(--base-accent-color);
   color: var(--contrast-color-text);
-
+  cursor: pointer;
+  
   font-family: "Truculenta", sans-serif;
   font-size: 22px;
   font-optical-sizing: auto;
   font-weight: 800;
+  
+  transition: box-shadow 0.5s;
 }
 
 div.stickBottom input[type="button"]:hover {
-  background-color: var(--highlight-color-focus);
+  box-shadow: 0px 0px 10px var(--base-accent-color);
 }
 
 div.stickBottom {
   position: absolute;
   height: 10px;
-  bottom: 60px;
+  bottom: 110px;
   right: 0;
   left: 0;
   text-align: center;
@@ -150,6 +172,7 @@ div.stickBottom {
 }
 
 /* Header                                                             */
-h1, h2 {
+h1,
+h2 {
   color: var(--base-color-text);
 }
