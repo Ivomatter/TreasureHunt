@@ -4,6 +4,13 @@ treasureCountInput = document.getElementById('treasureCount');
 
 console.log(localStorage.getItem('room'));
 
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+});
+
 function handleFileUpload(event) {
   const file = event.target.files[0];
   const imgContainer = document.querySelector('.imgContainer');
@@ -17,16 +24,19 @@ function handleFileUpload(event) {
   };
 
   reader.readAsDataURL(file);
+//   console.log(reader.result);
+    toBase64(file).then((data) => {
+        console.log(data);
+    });
 
+//   console.log(file.toString());
   uploadedFiles.push(file);
-  console.log(uploadedFiles);
+//   console.log(uploadedFiles);
 }
 
 function startGame(event) {
     user = localStorage.getItem('user');
     room = localStorage.getItem('room');
-    
-    
 
     fetch("/start_game", {
         method: "POST",
