@@ -24,11 +24,22 @@
     <div class="login-form">
       <form method="post">
         <label>Join code:</label>
-        <input type="text" id="username" name="username">
-        <input type="button" value="Join">
+        <input id="roomId" type="text" id="username" name="username">
+        <input id="joinButton" type="button" value="Join">
       </form>
     </div>
   </div>
 </body>
+
+<script>
+const user = localStorage.getItem('user');
+
+document.getElementById("joinButton").addEventListener("click", (ev) => {
+	ev.preventDefault();
+	localStorage.setItem('room', document.getElementById('roomId').value);
+	window.location.href = "/game";
+});
+
+</script>
 
 </html>

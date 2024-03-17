@@ -19,6 +19,16 @@ def index():
     images = list(app.config['uploaded_files'].keys())
     return render_template('newGame.html', images=images)
 
+@app.route('/game')
+def game():
+    images = list(app.config['uploaded_files'].keys())
+    return render_template('game.html', images=images)
+
+@app.route('/join_game')
+def join_game():
+    images = list(app.config['uploaded_files'].keys())
+    return render_template('joinGame.html', images=images)
+
 @app.route('/start_game')
 def start_game():
     images = list(app.config['uploaded_files'].keys())
@@ -36,7 +46,7 @@ def upload():
     except RequestEntityTooLarge:
         return 'File is larger than the 16MB limit.'
 
-@app.route('/create_game', methods=['POST'])
+@app.route('/backend/create_game', methods=['POST'])
 def create_game():
     return requestProcessor.get_response(request.json)
 

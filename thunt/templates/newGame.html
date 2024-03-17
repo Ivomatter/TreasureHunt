@@ -66,6 +66,44 @@
   </div>
 </body>
 
-<script src="../static/newGame.js"></script>
+<script>
+const usernameInput = document.getElementById('username');
+const joinButton = document.getElementById('joinButton');
+const createButton = document.getElementById('createButton');
+
+usernameInput.addEventListener('input', () => {
+	if (usernameInput.value.trim() !== '') {
+		joinButton.disabled = false;
+		createButton.disabled = false;
+	} else {
+		joinButton.disabled = true;
+		createButton.disabled = true;
+	}
+});
+
+function newGame(event) {
+	fetch("/backend/create_game", {
+		method: "POST",
+		headers: { "Content-Type": "application/json; charset=UTF-8" },
+		body: JSON.stringify({ request: "create_game", user: usernameInput.value })
+	})
+		.then(response => response.json())
+		.then((data) => {
+			localStorage.setItem('room', data.room);
+			window.location.href = "/start_game";
+			console.log(localStorage.getItem('room'));
+		})
+		.catch((errdata) => {
+			console.log(errdata);
+		});
+}
+
+function joinGame() {
+	window.location.href = "/join_game";
+}
+
+document.getElementById("joinButton").addEventListener("click", joinGame);
+document.getElementById("createButton").addEventListener("click", newGame);
+</script>
 
 </html>
