@@ -54,6 +54,11 @@ class Room:
         self.end_time = datetime.now() + timedelta(minutes = int(data['duration']))
         self.riddle_count = int(data['treasure_count'])
 
+        if self.riddle_count > len(self.objects):
+            self.riddle_count = len(self.objects)
+        else:
+            self.objects = self.objects[:self.riddle_count]
+
         self.add_player(data["user"])
         return self.get_player_riddle(data['user'])
 

@@ -2,10 +2,12 @@ const uploadedFiles = [];
 durationInput = document.getElementById('duration');
 treasureCountInput = document.getElementById('treasureCount');
 
-function startGame(event) {
-	user = localStorage.getItem('user');
-	room = localStorage.getItem('room');
+const user = localStorage.getItem('user');
+const room = localStorage.getItem('room');
 
+document.querySelector('#game-id-label').innerText = `Room ${room}`;
+
+function startGame(event) {
 	// Creating new FormData instance
 	let formData = new FormData();
 	formData.append("request", 'start_game');
