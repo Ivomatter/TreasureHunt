@@ -58,7 +58,11 @@ def create_game():
 
 @app.route('/backend/skip_riddle', methods=['POST'])
 def skip_riddle():
-    print(request.json)
+    res = requestProcessor.get_response(request.json)
+    return res
+
+@app.route('/backend/join_game', methods=['POST'])
+def backend_join_game():
     res = requestProcessor.get_response(request.json)
     return res
 
