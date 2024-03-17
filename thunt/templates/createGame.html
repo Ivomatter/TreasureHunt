@@ -21,7 +21,7 @@
     <div class="heading-container">
       <h1 id="game-id-label">Game ID: AAA-BBB</h1>
     </div>
-    
+
     <div class="login-form">
       <form method="post">
         <label>Duration:</label>
@@ -42,71 +42,153 @@
     </div>
   </div>
 
+  <style>
+    svg.loadSVG>* {
+      stroke: black;
+      stroke-width: 4px;
+      fill: var(--base-accent-color);
+    }
+
+    div.loadingScreen {
+      text-align: center;
+    }
+
+    #popupBoxLoadingText:after {
+      content: '';
+      animation: changeText 7s infinite;
+      font-size: 30px;
+      display: inline-block;
+    }
+
+    @keyframes changeText {
+      0% {
+        content: "A riddle is worth a thousand pictures...";
+      }
+
+      33% {
+        content: "Stay tuned! Polishing up riddles for you...";
+      }
+
+      66% {
+        content: "Hang tight! We're cooking up riddles...";
+      }
+
+      100% {
+        content: "A riddle is worth a thousand pictures...";
+      }
+    }
+  </style>
+
+  <div id="popupBox" class="loadingScreen popup">
+    <div class="popupBoxContent">
+      <svg class="loadSVG" width="100" height="100">
+        <path fill="none" d=" M 90 50 A 40 40 0 0 1 50 90">
+          <animate attributeName="d" values="
+          M 10 50 A 40 40 180 0 1 50 10;
+          M 90 50 A 40 40 0 0 1 50 90;
+          M 10 50 A 40 40 180 0 1 50 10;" dur="3s" repeatCount="indefinite" />
+        </path>
+
+        <path fill="none" d=" M 90 50 A 40 40 0 0 1 50 90">
+          <animate attributeName="d" values="
+          M 90 50 A 40 40 0 0 1 50 90;
+          M 10 50 A 40 40 180 0 1 50 10;
+          M 90 50 A 40 40 0 0 1 50 90" dur="3s" repeatCount="indefinite" />
+        </path>
+
+        <path fill="none" d=" M 90 50 A 40 40 0 0 1 50 90">
+          <animate attributeName="d" values="
+          M 50 90 A 40 40 90 0 1 10 50;
+          M 50 10 A 40 40 270 0 1 90 50;
+          M 50 90 A 40 40 90 0 1 10 50" dur="5s" repeatCount="indefinite" />
+        </path>
+
+        <path fill="none" d=" M 90 50 A 40 40 0 0 1 50 90">
+          <animate attributeName="d" values="
+          M 50 10 A 40 40 270 0 1 90 50;
+          M 50 90 A 40 40 90 0 1 10 50;
+          M 50 10 A 40 40 270 0 1 90 50" dur="5s" repeatCount="indefinite" />
+        </path>
+
+      </svg>
+      <p id="popupBoxLoadingText"></p>
+    </div>
+  </div>
+
 </body>
 
 <script>
-const uploadedFiles = [];
-durationInput = document.getElementById('duration');
-treasureCountInput = document.getElementById('treasureCount');
+  const uploadedFiles = [];
+  durationInput = document.getElementById('duration');
+  treasureCountInput = document.getElementById('treasureCount');
 
-const user = localStorage.getItem('user');
-const room = localStorage.getItem('room');
+  const user = localStorage.getItem('user');
+  const room = localStorage.getItem('room');
 
-document.querySelector('#game-id-label').innerText = `Room ${room}`;
+  document.querySelector('#game-id-label').innerText = `Room ${room}`;
 
-function startGame(event) {
-	// Creating new FormData instance
-	let formData = new FormData();
-	formData.append("request", 'start_game');
-	formData.append("user", user);
-	formData.append("room", room);
-	formData.append("duration", durationInput.value);
-	formData.append("treasure_count", treasureCountInput.value);
+  function startGame(event) {
+    // Creating new FormData instance
+    let formData = new FormData();
+    formData.append("request", 'start_game');
+    formData.append("user", user);
+    formData.append("room", room);
+    formData.append("duration", durationInput.value);
+    formData.append("treasure_count", treasureCountInput.value);
 
-	// Append files to formData
-	for (let index = 0; index < uploadedFiles.length; index++) {
-		formData.append("file" + index, uploadedFiles[index]);
-	}
+    // Append files to formData
+    for (let index = 0; index < uploadedFiles.length; index++) {
+      formData.append("file" + index, uploadedFiles[index]);
+    }
 
-	fetch("/backend/start_game", {
-		method: "POST",
-		body: formData
-	})
-		.then(response => response.json())
-		.then((data) => {
-			localStorage.setItem('riddle', data.riddle);
-			localStorage.setItem('duration', durationInput.value);
-			localStorage.setItem('treasureCount', treasureCountInput.value);
-			window.location.href = "/game";
-		})
-		.catch((errdata) => {
-			console.log(errdata);
-		});
-}
+    fetch("/backend/start_game", {
+      method: "POST",
+      body: formData
+    })
+      .then(response => response.json())
+      .then((data) => {
+        localStorage.setItem('riddle', data.riddle);
+        localStorage.setItem('duration', durationInput.value);
+        localStorage.setItem('treasureCount', treasureCountInput.value);
+        window.location.href = "/game";
+      })
+      .catch((errdata) => {
+        console.log(errdata);
+      });
+  }
 
-function handleFileUpload(event) {
-	const file = event.target.files[0];
-	const imgContainer = document.querySelector('.imgContainer');
+  function handleFileUpload(event) {
+    const file = event.target.files[0];
+    const imgContainer = document.querySelector('.imgContainer');
 
-	const reader = new FileReader();
-	reader.onload = function (e) {
-		const img = document.createElement('img');
-		img.src = e.target.result;
-		img.alt = 'Image';
-		imgContainer.prepend(img);
-	};
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.alt = 'Image';
+      imgContainer.prepend(img);
+    };
 
-	reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 
-	uploadedFiles.push(file);
-}
+    uploadedFiles.push(file);
+  }
 
-function createJS() {
-	const loginButton = document.getElementById("startButton");
-	loginButton.addEventListener("click", startGame);
-}
+  function createJS() {
+    const loginButton = document.getElementById("startButton");
+    loginButton.addEventListener("click", startGame);
+  }
 
-createJS();
+  createJS();
+</script>
+
+<script>
+  // PopupBox
+  function displayPopup(text) {
+    document.getElementById("popupBox").style.display = "block";
+  }
+
+  // displayPopup();
 </script>
 
 </html>
