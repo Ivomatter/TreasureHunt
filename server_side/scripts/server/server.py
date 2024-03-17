@@ -39,6 +39,7 @@ def create_game():
 
 @app.route('/start_game', methods=['POST'])
 def start_game():
+    
     print(request.json)
     resp = requestProcessor.get_response(request.json)
     print(resp)

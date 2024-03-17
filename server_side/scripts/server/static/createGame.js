@@ -27,10 +27,11 @@ function handleFileUpload(event) {
 //   console.log(reader.result);
     toBase64(file).then((data) => {
         console.log(data);
+        uploadedFiles.push(data);
     });
 
 //   console.log(file.toString());
-  uploadedFiles.push(file);
+//   uploadedFiles.push(file);
 //   console.log(uploadedFiles);
 }
 
@@ -44,7 +45,7 @@ function startGame(event) {
         body: JSON.stringify({ request: 'start_game', 
                                user: user,  
                                room: room, 
-                               duration: durationInput.xvalue,
+                               duration: durationInput.value,
                                treasure_count: treasureCountInput.value,
                                images: uploadedFiles})
     })
