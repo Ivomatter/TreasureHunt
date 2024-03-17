@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Create game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="../static/UIControls.css">
+  <link rel="stylesheet" href="../static/UIStyle.css">
+  <link rel="stylesheet" href="../static/UIElements.css">
+</head>
+
+<body>
+  <div class="centerContent">
+    <div class="heading-container">
+      <h1>Game ID: AAA-BBB</h1>
+    </div>
+
+    
+    <div class="login-form">
+      <form method="post">
+        <label>Duration:</label>
+        <input type="text" id="duration" name="duration">
+        <label>Treasure count:</label>
+        <input type="text" id="treasureCount" name="treasureCount">
+        <label>Uploaded photos:</label>
+
+        <div class="imgContainer">
+        </div>
+
+        <div class="center">
+          <label class="fileFab"> +
+            <input type="file" accept="image/*" onchange="handleFileUpload(event)" />
+          </label>
+        </div>
+
+        <input type="button" id="startButton" value="Start game">
+      </form>
+    </div>
+  </div>
+
+  <script src="../static/createGame.js"></script>
+
+</body>
+
+</html>
