@@ -81,6 +81,14 @@ form input[type="button"]:hover {
 }
 
 .centerContent {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+
+  user-select: none;
   max-width: var(--max-width-elements);
   width: auto;
   margin: 0 auto;
