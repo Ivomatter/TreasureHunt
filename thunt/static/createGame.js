@@ -42,7 +42,7 @@ function handleFileUpload(event) {
 		const img = document.createElement('img');
 		img.src = e.target.result;
 		img.alt = 'Image';
-		imgContainer.appendChild(img);
+		imgContainer.prepend(img);
 	};
 
 	reader.readAsDataURL(file);
