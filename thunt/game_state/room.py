@@ -64,8 +64,9 @@ class Room:
 
 
     def guessed_right(self, data):
-        object = self.get_player_object(data['user'])
-        if (object == data['image']): # here add function to analyze the image object
+        obj = self.get_player_object(data['user'])
+
+        if (ic.ImageClassifier().compare_guess(data['image'], obj)):
             return True
         else:
             return False

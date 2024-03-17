@@ -74,7 +74,6 @@ function startGame(event) {
 	})
 		.then(response => response.json())
 		.then((data) => {
-			print(data.riddle);
 			localStorage.setItem('riddle', data.riddle);
 			localStorage.setItem('duration', durationInput.value);
 			localStorage.setItem('treasureCount', treasureCountInput.value);
@@ -99,7 +98,6 @@ function handleFileUpload(event) {
 
 	reader.readAsDataURL(file);
 
-	//Saving the actual File object
 	uploadedFiles.push(file);
 }
 

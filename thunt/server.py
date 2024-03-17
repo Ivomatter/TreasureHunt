@@ -60,8 +60,26 @@ def create_game():
 def skip_riddle():
     print(request.json)
     res = requestProcessor.get_response(request.json)
-    print(res)
     return res
+
+@app.route('/backend/guess', methods=['POST'])
+def backend_guess():
+    user = request.form.get('user')
+    room = request.form.get('room')
+
+    file = request.files['file']
+    _, file_extension = os.path.splitext(file.filename)
+    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=file_extension)
+    file.save(temp_file.name)
+
+    body = {
+        'request': 'guess',
+        'user': user,
+        'room': room,
+        'image': temp_file.name  # Send the image file
+    }
+
+    return requestProcessor.get_response(body)
 
 @app.route('/backend/start_game', methods=['POST'])
 def backend_start_game():
