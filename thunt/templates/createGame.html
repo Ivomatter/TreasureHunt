@@ -141,6 +141,7 @@
       formData.append("file" + index, uploadedFiles[index]);
     }
 
+    displayPopup();
     fetch("/backend/start_game", {
       method: "POST",
       body: formData
@@ -183,12 +184,9 @@
 </script>
 
 <script>
-  // PopupBox
   function displayPopup(text) {
     document.getElementById("popupBox").style.display = "block";
   }
-
-  // displayPopup();
 </script>
 
 </html>
