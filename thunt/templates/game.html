@@ -56,16 +56,31 @@
 <script>
   const user = localStorage.getItem('user');
   const room = localStorage.getItem('room');
-  const duration = localStorage.getItem('duration');
-  const treasureCount = localStorage.getItem('treasureCount');
   const progressElem = document.querySelector('.progressElem');
   const riddleBox = document.getElementById('riddleBox');
   const riddlesSolvedCnt = document.getElementById('riddlesSolvedCnt');
   const timeLeft = document.getElementById('timeLeft');
 
+  let duration = 10;
+  let treasureCount = 0;
+
   let countdown;
   let time = duration * 60;
   let currentRiddle = 1.0;
+
+  function getSeconds(timeStr) {
+	const pattern = /^(\d+):(\d+):(\d+(.\d+)?)$/;
+	const match = timeStr.match(pattern);
+
+	if (!match) { return 0; }
+
+	const hours = parseInt(match[1]);
+	const minutes = parseInt(match[2]);
+	const seconds = parseFloat(match[3]);
+
+	const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+	return Math.floor(totalSeconds);
+  }
 
   function incrRiddle(newRiddle) {
 	++currentRiddle;
@@ -116,7 +131,7 @@
   }
 
   function updateUIProgress() {
-    progressElem.style.width = `${currentRiddle / treasureCount * 100}%`;
+    progressElem.style.width = `${(currentRiddle - 1) / treasureCount * 100}%`;
     riddlesSolvedCnt.innerText = `${currentRiddle}/${treasureCount}`;
   }
 
@@ -129,6 +144,15 @@
 	  .then(response => response.json())
 	  .then((data) => {
 		riddleBox.innerText = data.riddle;
+        duration = data.duration;
+        treasureCount = data.total_count;
+
+        time = getSeconds(duration);
+        currentRiddle = 1.0;
+
+		updateUIProgress();
+		updateTimer();
+		startTimer();
 	  })
   }
 
@@ -139,8 +163,6 @@
     skipButton.addEventListener("click", skipRiddle);
 
     joinGame();
-    updateUIProgress();
-    startTimer();
   }
 
   function startTimer() {
@@ -155,6 +177,7 @@
 
     if (time <= 0) {
       clearInterval(countdown);
+      window.location.href = "/leaderboard";
     } else {
       time--;
     }
