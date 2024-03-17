@@ -63,6 +63,16 @@
 	let time = duration * 60;
 	let currentRiddle = 1.0;
 
+	function incrRiddle(newRiddle) {
+	  ++currentRiddle;
+	  if (currentRiddle < treasureCount) {
+		riddleBox.innerText = newRiddle;
+		updateUIProgress();
+	  } else {
+		window.location.href = "/leaderboard";
+	  }
+	}
+
 	function makeGuess(event) {
 	  document.getElementById('fileInput').click();
 	}
@@ -83,7 +93,7 @@
 		  .then((response) => response.json())
 		  .then((data) => {
 			if (data.is_correct) {
-			  currentRiddle ++;
+			  incrRiddle(data.riddle);
 			}
 		  })
 		  .catch((errdata) => {
@@ -100,13 +110,7 @@
 	  })
 		.then(response => response.json())
 		.then((data) => {
-		  ++currentRiddle;
-		  if (currentRiddle < treasureCount) {
-			riddleBox.innerText = data.riddle;
-			updateUIProgress();
-		  } else {
-			window.location.href = "/leaderboard";
-		  }
+		  incrRiddle(data.riddle);
 		})
 		.catch((errdata) => {
 		  console.log(errdata);
