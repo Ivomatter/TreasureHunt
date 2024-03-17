@@ -44,6 +44,13 @@
     </div>
   </div>
 
+  <div id="popupBox" class="popup">
+    <div class="popupBoxContent">
+      <span id="popupBoxClose">&times;</span>
+      <p id="popupBoxText">Popup message box</p>
+    </div>
+  </div>
+
 </body>
 
 <script>
@@ -147,6 +154,26 @@
 
   gameJS();
 
+</script>
+
+<script>
+  // PopupBox
+  function displayPopup(text) {
+    popupBoxText.innerHTML = text;
+    document.getElementById("popupBox").style.display = "block";
+  }
+
+  document.getElementById("popupBoxClose").onclick = function () {
+    document.getElementById("popupBox").style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target == document.getElementById("popupBox")) {
+      document.getElementById("popupBox").style.display = "none";
+    }
+  }
+
+  // displayPopup("You failed, try again!");
 </script>
 
 </html>
