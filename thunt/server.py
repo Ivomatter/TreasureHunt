@@ -81,6 +81,19 @@ def backend_guess():
 
     return requestProcessor.get_response(body)
 
+@app.route('/backend/leaderboard', methods=['POST'])
+def backend_leaderboard():
+    user = request.form.get('user')
+    room = request.form.get('room')
+
+    body = {
+        'request': 'leaderboard',
+        'user': user,
+        'room': room,
+    }
+
+    return requestProcessor.get_response(body)
+
 @app.route('/backend/start_game', methods=['POST'])
 def backend_start_game():
     request_data = request.form.get('request')

@@ -58,6 +58,8 @@ class RequestProcessor:
                 return self.skip(data)
             case 'hint':
                 return self.hint(data)
+            case 'leaderboard':
+                return self.leaderboard(data)
             case _:
                 raise TypeError("request not permited") # return error on client side not here
 

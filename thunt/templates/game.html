@@ -81,6 +81,11 @@
 		  body: formData
 		})
 		  .then((response) => response.json())
+		  .then((data) => {
+			if (data.is_correct) {
+			  currentRiddle ++;
+			}
+		  })
 		  .catch((errdata) => {
 			console.log(errdata);
 		  })

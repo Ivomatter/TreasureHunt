@@ -65,15 +65,23 @@
     }
   }
 
-  let dataset = [
-    { name: "kaka vaska", points: 101 },
-    { name: "kaka vaska", points: 100 },
-    { name: "kaka vaska", points: 100 },
-    { name: "kaka vaska", points: 100 },
-    { name: "kaka vaska", points: 100 }
-  ];
+  const user = localStorage.getItem('user');
+  const room = localStorage.getItem('room');
+  let formData = new FormData();
+  formData.append('user', user);
+  formData.append('room', room);
 
-  displayData(dataset);
+  fetch("/backend/leaderboard", {
+	method: "POST",
+	body: formData
+  })
+	.then(response => response.json())
+	.then((data) => {
+	  displayData(data.sort((a, b) => b.points - a.points));
+	})
+	.catch((errdata) => {
+	  console.log(errdata);
+	});
 </script>
 
 </html>

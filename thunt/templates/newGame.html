@@ -90,7 +90,7 @@ function newGame(event) {
 		.then(response => response.json())
 		.then((data) => {
 			localStorage.setItem('room', data.room);
-      localStorage.setItem('user', usernameInput.value);
+			localStorage.setItem('user', usernameInput.value);
 			window.location.href = "/start_game";
 			console.log(localStorage.getItem('room'));
 		})

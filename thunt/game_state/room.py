@@ -90,4 +90,4 @@ class Room:
 
 
     def leaderboard(self, _):
-        return [{playerID: player.points} for playerID, player in self.players.items()] 
+        return [{"name": playerID, "points": int(player.points)} for playerID, player in self.players.items()] 
