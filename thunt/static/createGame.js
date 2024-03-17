@@ -19,14 +19,13 @@ function startGame(event) {
 		formData.append("file" + index, uploadedFiles[index]);
 	}
 
-	fetch("/start_game", {
+	fetch("/backend/start_game", {
 		method: "POST",
 		body: formData
 	})
 		.then(response => response.json())
 		.then((data) => {
-			console.log(data);
-			window.location.href = "/r1";
+			window.location.href = "/start_game";
 		})
 		.catch((errdata) => {
 			console.log(errdata);
