@@ -2,13 +2,14 @@
 <html>
 
 <head>
-  <title>Start</title>
+  <title>Loc8r</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../static/UIControls.css">
   <link rel="stylesheet" href="../static/UIStyle.css">
@@ -18,9 +19,18 @@
 <body>
   <div class="centerContent">
     <div class="heading-container">
-      <h1>Loc8r</h1>
+      <h1 style="
+        font-family: 'Lobster', sans-serif;
+        font-size: 60px;
+  font-weight: 500;
+  font-style: normal;
+        ">Loc8r</h1>
 
       <style>
+        svg.logoSVG {
+          margin-top: -30px;
+        }
+
         svg.logoSVG>* {
           stroke: black;
           fill: var(--module-background-color);
@@ -67,44 +77,44 @@
 </body>
 
 <script>
-const usernameInput = document.getElementById('username');
-const joinButton = document.getElementById('joinButton');
-const createButton = document.getElementById('createButton');
+  const usernameInput = document.getElementById('username');
+  const joinButton = document.getElementById('joinButton');
+  const createButton = document.getElementById('createButton');
 
-usernameInput.addEventListener('input', () => {
-	if (usernameInput.value.trim() !== '') {
-		joinButton.disabled = false;
-		createButton.disabled = false;
-	} else {
-		joinButton.disabled = true;
-		createButton.disabled = true;
-	}
-});
+  usernameInput.addEventListener('input', () => {
+    if (usernameInput.value.trim() !== '') {
+      joinButton.disabled = false;
+      createButton.disabled = false;
+    } else {
+      joinButton.disabled = true;
+      createButton.disabled = true;
+    }
+  });
 
-function newGame(event) {
-	fetch("/backend/create_game", {
-		method: "POST",
-		headers: { "Content-Type": "application/json; charset=UTF-8" },
-		body: JSON.stringify({ request: "create_game", user: usernameInput.value })
-	})
-		.then(response => response.json())
-		.then((data) => {
-			localStorage.setItem('room', data.room);
-			localStorage.setItem('user', usernameInput.value);
-			window.location.href = "/start_game";
-			console.log(localStorage.getItem('room'));
-		})
-		.catch((errdata) => {
-			console.log(errdata);
-		});
-}
+  function newGame(event) {
+    fetch("/backend/create_game", {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+      body: JSON.stringify({ request: "create_game", user: usernameInput.value })
+    })
+      .then(response => response.json())
+      .then((data) => {
+        localStorage.setItem('room', data.room);
+        localStorage.setItem('user', usernameInput.value);
+        window.location.href = "/start_game";
+        console.log(localStorage.getItem('room'));
+      })
+      .catch((errdata) => {
+        console.log(errdata);
+      });
+  }
 
-function joinGame() {
-	window.location.href = "/join_game";
-}
+  function joinGame() {
+    window.location.href = "/join_game";
+  }
 
-document.getElementById("joinButton").addEventListener("click", joinGame);
-document.getElementById("createButton").addEventListener("click", newGame);
+  document.getElementById("joinButton").addEventListener("click", joinGame);
+  document.getElementById("createButton").addEventListener("click", newGame);
 </script>
 
 </html>
