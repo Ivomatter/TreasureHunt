@@ -67,8 +67,18 @@
   let time = duration * 60;
   let currentRiddle = 1.0;
 
+  function incrRiddle(newRiddle) {
+	++currentRiddle;
+	if (currentRiddle < treasureCount) {
+	  riddleBox.innerText = newRiddle;
+	  updateUIProgress();
+	} else {
+	  window.location.href = "/leaderboard";
+	}
+  }
+
   function makeGuess(event) {
-    document.getElementById('fileInput').click();
+	document.getElementById('fileInput').click();
   }
 
   function uploadFile() {
@@ -80,41 +90,35 @@
       formData.append('user', user);
       formData.append('room', room);
 
-      fetch('/backend/guess', {
-        method: 'POST',
-        body: formData
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.is_correct) {
-            currentRiddle++;
-          }
-        })
-        .catch((errdata) => {
-          console.log(errdata);
-        })
-    }
+	  fetch('/backend/guess', {
+		method: 'POST',
+		body: formData
+	  })
+		.then((response) => response.json())
+		.then((data) => {
+		  if (data.is_correct) {
+			incrRiddle(data.riddle);
+		  }
+		})
+		.catch((errdata) => {
+		  console.log(errdata);
+		})
+	}
   }
 
   function skipRiddle(event) {
-    fetch("/backend/skip_riddle", {
-      method: "POST",
-      headers: { "Content-Type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ request: "skip", user: user, room: room })
-    })
-      .then(response => response.json())
-      .then((data) => {
-        ++currentRiddle;
-        if (currentRiddle < treasureCount) {
-          riddleBox.innerText = data.riddle;
-          updateUIProgress();
-        } else {
-          window.location.href = "/leaderboard";
-        }
-      })
-      .catch((errdata) => {
-        console.log(errdata);
-      });
+	fetch("/backend/skip_riddle", {
+	  method: "POST",
+	  headers: { "Content-Type": "application/json; charset=UTF-8" },
+	  body: JSON.stringify({ request: "skip", user: user, room: room })
+	})
+	  .then(response => response.json())
+	  .then((data) => {
+		incrRiddle(data.riddle);
+	  })
+	  .catch((errdata) => {
+		console.log(errdata);
+	  });
   }
 
   function updateUIProgress() {

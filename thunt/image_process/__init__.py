@@ -31,7 +31,8 @@ class ImageClassifier():
         return list(set(ret))
 
     def compare_guess(self, img_path, guess):
-        objects = self.get_objects(img_path, 0.2)
+        objects = self.get_objects(img_path, 0.1)
+        print(objects)
         return guess in objects
 
 
