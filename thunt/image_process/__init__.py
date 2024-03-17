@@ -10,6 +10,8 @@ class ImageClassifier():
 
     def get_objects(self, img_path, req_perc=0.1):
         results = self.model(img_path, verbose=False) 
+        
+        print(len(results))
 
         classes = results[0].boxes.cls.cpu().tolist() 
         confs = results[0].boxes.conf.float().cpu().tolist()
@@ -102,8 +104,9 @@ def create_riddle_all(images, mode='mock'):
     objects = list(set([
         obj
         for img in images
-        for obj in ImageClassifier().get_objects(img)
+        for obj in ImageClassifier().get_objects(img, 0.0001)
     ]))
+    print(objects)
 
     ret = [
         { 

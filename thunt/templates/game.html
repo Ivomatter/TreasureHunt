@@ -7,8 +7,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Truculenta:opsz,wght@12..72,100..900&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Truculenta:opsz,wght@12..72,100..900&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="../static/UIControls.css">
   <link rel="stylesheet" href="../static/UIStyle.css">
@@ -19,8 +22,8 @@
   <div class="centerContent">
 
     <div class="gameContentTwoSide">
-      <div class="chip"> Time: 10:00 </div>
-      <div class="chip"> 7/10 </div>
+      <div class="chip" id="timeLeft"> Time: 10:00 </div>
+      <div class="chip" id="riddlesSolvedCnt"> 7/10 </div>
     </div>
 
     <div class="progressBar">
@@ -31,17 +34,97 @@
       <div class="heading-container">
         <h2>Riddle</h2>
       </div>
-      <div class="riddleBox">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repellat, explicabo excepturi provident odit labore atque consequatur, vero dolore autem iusto. Omnis amet delectus itaque vel eaque sint? 
+      <div class="riddleBox" id="riddleBox">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repellat, explicabo excepturi provident odit
+        labore atque consequatur, vero dolore autem iusto. Omnis amet delectus itaque vel eaque sint?
       </div>
     </div>
 
     <div class="heading-container stickBottom">
-      <input type="button" value="Skip">
-      <input type="button" value="Guess">
+      <input type="button" id="skipButton" value="Skip">
+      <input type="button" id="guessButton" value="Guess">
     </div>
   </div>
 
 </body>
+
+<script>
+  const user = localStorage.getItem('user');
+  const room = localStorage.getItem('room');
+  const duration = localStorage.getItem('duration');
+  const treasureCount = localStorage.getItem('treasureCount');
+  const progressElem = document.querySelector('.progressElem');
+  const riddleBox = document.getElementById('riddleBox');
+  const riddlesSolvedCnt = document.getElementById('riddlesSolvedCnt');
+  const timeLeft = document.getElementById('timeLeft');
+
+  let countdown;
+  let time = duration * 60;
+  let currentRiddle = 1.0;
+
+  function makeGuess(event) {
+    // TODO: send guess to server
+  }
+
+  function skipRiddle(event) {
+    fetch("/backend/skip_riddle", {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+      body: JSON.stringify({ request: "skip", user: user, room: room })
+    })
+      .then(response => response.json())
+      .then((data) => {
+        ++currentRiddle;
+        if (currentRiddle < treasureCount) {
+          riddleBox.innerText = data.riddle;
+          updateUIProgress();
+        } else {
+          window.location.href = "/leaderboard";
+        }
+      })
+      .catch((errdata) => {
+        console.log(errdata);
+      });
+  }
+
+  function updateUIProgress() {
+    progressElem.style.width = `${currentRiddle / treasureCount * 100}%`;
+    riddlesSolvedCnt.innerText = `${currentRiddle}/${treasureCount}`;
+  }
+
+  function gameJS() {
+    const guessButton = document.getElementById("guessButton");
+    const skipButton = document.getElementById("skipButton");
+    guessButton.addEventListener("click", makeGuess);
+    skipButton.addEventListener("click", skipRiddle);
+
+    riddleBox.innerText = localStorage.getItem('riddle');
+    localStorage.removeItem('riddle');
+
+    updateUIProgress();
+    startTimer();
+  }
+
+  function startTimer() {
+    countdown = setInterval(updateTimer, 1000);
+  }
+
+  function updateTimer() {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    timeLeft.innerText = `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    if (time <= 0) {
+      clearInterval(countdown);
+      // TODO: handle time's up event
+    } else {
+      time--;
+    }
+  }
+
+  gameJS();
+
+</script>
 
 </html>

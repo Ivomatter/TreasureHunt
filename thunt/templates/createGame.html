@@ -74,7 +74,11 @@ function startGame(event) {
 	})
 		.then(response => response.json())
 		.then((data) => {
-			window.location.href = "/start_game";
+			print(data.riddle);
+			localStorage.setItem('riddle', data.riddle);
+			localStorage.setItem('duration', durationInput.value);
+			localStorage.setItem('treasureCount', treasureCountInput.value);
+			window.location.href = "/game";
 		})
 		.catch((errdata) => {
 			console.log(errdata);

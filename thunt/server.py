@@ -24,6 +24,11 @@ def game():
     images = list(app.config['uploaded_files'].keys())
     return render_template('game.html', images=images)
 
+@app.route('/leaderboard')
+def leaderboard():
+    images = list(app.config['uploaded_files'].keys())
+    return render_template('leaderboard.html', images=images)
+
 @app.route('/join_game')
 def join_game():
     images = list(app.config['uploaded_files'].keys())
@@ -49,6 +54,14 @@ def upload():
 @app.route('/backend/create_game', methods=['POST'])
 def create_game():
     return requestProcessor.get_response(request.json)
+
+
+@app.route('/backend/skip_riddle', methods=['POST'])
+def skip_riddle():
+    print(request.json)
+    res = requestProcessor.get_response(request.json)
+    print(res)
+    return res
 
 @app.route('/backend/start_game', methods=['POST'])
 def backend_start_game():
@@ -76,8 +89,8 @@ def backend_start_game():
         'treasure_count': treasure_count,
         'images': images
     }
-    resp = requestProcessor.get_response(body)
-    return resp
+    
+    return requestProcessor.get_response(body)
 
 def allowed_file(filename):
     return '.' in filename and \

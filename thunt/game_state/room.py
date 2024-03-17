@@ -60,7 +60,7 @@ class Room:
             self.objects = self.objects[:self.riddle_count]
 
         self.add_player(data["user"])
-        return self.get_player_riddle(data['user'])
+        return {'riddle': self.get_player_riddle(data['user'])} 
 
 
     def guessed_right(self, data):
