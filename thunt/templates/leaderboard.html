@@ -10,10 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../styles/UIControls.css">
-  <link rel="stylesheet" href="../styles/UIStyle.css">
-  <link rel="stylesheet" href="../styles/UIElements.css">
-  <link rel="stylesheet" href="../styles/UIStyleLeaderboard.css">
+  <link rel="stylesheet" href="../static/UIControls.css">
+  <link rel="stylesheet" href="../static/UIStyle.css">
+  <link rel="stylesheet" href="../static/UIElements.css">
+  <link rel="stylesheet" href="../static/UIStyleLeaderboard.css">
 </head>
 
 <body>
@@ -41,7 +41,7 @@
       leaderboardName.textContent = element.name;
       let leaderboardPoints = document.createElement("div");
       leaderboardPoints.className = "leaderboardPoints";
-      leaderboardPoints.textContent = element.points + " ⭐";
+      leaderboardPoints.textContent = element.points + " ⭐️";
 
       leaderboardUser.appendChild(leaderboardOrder);
       leaderboardUser.appendChild(leaderboardName);
