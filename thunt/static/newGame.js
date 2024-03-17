@@ -23,7 +23,7 @@ function newGame(event) {
 		.then(response => response.json())
 		.then((data) => {
 			localStorage.setItem('room', data.room);
-			window.location.href = "/r1";
+			window.location.href = "/start_game";
 			console.log(localStorage.getItem('room'));
 		})
 		.catch((errdata) => {

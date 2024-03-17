@@ -19,8 +19,8 @@ def index():
     images = list(app.config['uploaded_files'].keys())
     return render_template('newGame.html', images=images)
 
-@app.route('/r1')
-def r1():
+@app.route('/start_game')
+def start_game():
     images = list(app.config['uploaded_files'].keys())
     return render_template('createGame.html', images=images)
 
@@ -40,8 +40,8 @@ def upload():
 def create_game():
     return requestProcessor.get_response(request.json)
 
-@app.route('/start_game', methods=['POST'])
-def start_game():
+@app.route('/backend/start_game', methods=['POST'])
+def backend_start_game():
     request_data = request.form.get('request')
     user = request.form.get('user')
     room = request.form.get('room')
