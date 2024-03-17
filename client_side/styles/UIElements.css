@@ -4,10 +4,19 @@ div.imgContainer {
   flex-wrap: wrap;
   gap: 5px;
   height: 150px;
-  overflow: auto;
+  /* overflow: auto; */
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
-div.imgContainer > img {
+div.imgContainer::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+div.imgContainer>img {
   object-fit: cover;
   width: 100px;
   height: 100px;
@@ -150,6 +159,7 @@ div.stickBottom {
 }
 
 /* Header                                                             */
-h1, h2 {
+h1,
+h2 {
   color: var(--base-color-text);
 }
