@@ -25,6 +25,11 @@
     <div class="login-form" id="leaderbordTable">
     </div>
   </div>
+
+
+  <div class="heading-container stickBottom">
+    <input type="button" id="skipButton" value="Play Again">
+  </div>
 </body>
 <script>
   function displayData(dataList) {
@@ -72,16 +77,16 @@
   formData.append('room', room);
 
   fetch("/backend/leaderboard", {
-	method: "POST",
-	body: formData
+    method: "POST",
+    body: formData
   })
-	.then(response => response.json())
-	.then((data) => {
-	  displayData(data.sort((a, b) => b.points - a.points));
-	})
-	.catch((errdata) => {
-	  console.log(errdata);
-	});
+    .then(response => response.json())
+    .then((data) => {
+      displayData(data.sort((a, b) => b.points - a.points));
+    })
+    .catch((errdata) => {
+      console.log(errdata);
+    });
 </script>
 
 </html>
