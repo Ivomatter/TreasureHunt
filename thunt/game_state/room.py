@@ -50,7 +50,7 @@ class Room:
 
     def start_game(self, data):
         # data['images'] proccess and get {object : riddle} in objects
-        self.objects = ic.create_riddle_all([img for img in data['images']], mode='chatgpt')
+        self.objects = ic.create_riddle_all([img for img in data['images']], mode='mock')
         self.end_time = datetime.now() + timedelta(minutes = int(data['duration']))
         self.riddle_count = int(data['treasure_count'])
 
