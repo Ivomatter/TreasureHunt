@@ -63,7 +63,7 @@ class RequestProcessor:
 
 
     def get_response(self, data):
-        return json.dumps(self.process_request(json.loads(data)))
+        return json.dumps(self.process_request(data))
 
 
 # rp = RequestProcessor()

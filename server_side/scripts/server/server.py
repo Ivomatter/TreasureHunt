@@ -14,12 +14,12 @@ app.config['uploaded_files'] = {}  # Dictionary to store uploaded files in memor
 @app.route('/')
 def index():
     images = list(app.config['uploaded_files'].keys())
-    return render_template('createGame.html', images=images)
+    return render_template('newGame.html', images=images)
 
 @app.route('/r1')
 def r1():
     images = list(app.config['uploaded_files'].keys())
-    return render_template('newGame.html', images=images)
+    return render_template('createGame.html', images=images)
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -35,8 +35,14 @@ def upload():
 
 @app.route('/create_game', methods=['POST'])
 def create_game():
-    return jsonify(requestProcessor.get_response(request.json))
+    return requestProcessor.get_response(request.json)
 
+@app.route('/start_game', methods=['POST'])
+def start_game():
+    print(request.json)
+    resp = requestProcessor.get_response(request.json)
+    print(resp)
+    return resp
 
 def allowed_file(filename):
     return '.' in filename and \

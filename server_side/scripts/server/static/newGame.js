@@ -13,17 +13,21 @@ usernameInput.addEventListener('input', () => {
 });
 
 function newGame(event) {
-    console.log(usernameInput);
-
+    console.log(usernameInput.value);
+    
     fetch("/create_game", {
         method: "POST",
         headers: { "Content-Type": "application/json; charset=UTF-8" },
-        body: JSON.stringify({ request: 'create_game', user: usernameInput })
+        body: JSON.stringify({ request: "create_game", user: usernameInput.value })
     })
         .then(response => response.json())
         .then((data) => {
+            localStorage.setItem('room', data.room);
+            // TODO: add to frontend
+
             console.log(data);
             window.location.href = "/r1";
+            console.log(localStorage.getItem('room'));
         })
         .catch((errdata) => {
             console.log(errdata);
