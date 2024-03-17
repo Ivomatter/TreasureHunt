@@ -2,66 +2,58 @@ const uploadedFiles = [];
 durationInput = document.getElementById('duration');
 treasureCountInput = document.getElementById('treasureCount');
 
-console.log(localStorage.getItem('room'));
+function startGame(event) {
+	user = localStorage.getItem('user');
+	room = localStorage.getItem('room');
 
-const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-});
+	// Creating new FormData instance
+	let formData = new FormData();
+	formData.append("request", 'start_game');
+	formData.append("user", user);
+	formData.append("room", room);
+	formData.append("duration", durationInput.value);
+	formData.append("treasure_count", treasureCountInput.value);
 
-function handleFileUpload(event) {
-  const file = event.target.files[0];
-  const imgContainer = document.querySelector('.imgContainer');
+	// Append files to formData
+	for (let index = 0; index < uploadedFiles.length; index++) {
+		formData.append("file" + index, uploadedFiles[index]);
+	}
 
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const img = document.createElement('img');
-    img.src = e.target.result;
-    img.alt = 'Image';
-    imgContainer.appendChild(img);
-  };
-
-  reader.readAsDataURL(file);
-//   console.log(reader.result);
-    toBase64(file).then((data) => {
-        console.log(data);
-        uploadedFiles.push(data);
-    });
-
-//   console.log(file.toString());
-//   uploadedFiles.push(file);
-//   console.log(uploadedFiles);
+	fetch("/start_game", {
+		method: "POST",
+		body: formData
+	})
+		.then(response => response.json())
+		.then((data) => {
+			console.log(data);
+			window.location.href = "/r1";
+		})
+		.catch((errdata) => {
+			console.log(errdata);
+		});
 }
 
-function startGame(event) {
-    user = localStorage.getItem('user');
-    room = localStorage.getItem('room');
+function handleFileUpload(event) {
+	const file = event.target.files[0];
+	const imgContainer = document.querySelector('.imgContainer');
 
-    fetch("/start_game", {
-        method: "POST",
-        headers: { "Content-Type": "application/json; charset=UTF-8" },
-        body: JSON.stringify({ request: 'start_game', 
-                               user: user,  
-                               room: room, 
-                               duration: durationInput.value,
-                               treasure_count: treasureCountInput.value,
-                               images: uploadedFiles})
-    })
-        .then(response => response.json())
-        .then((data) => {
-            console.log(data);
-            window.location.href = "/r1";
-        })
-        .catch((errdata) => {
-            console.log(errdata);
-        });
+	const reader = new FileReader();
+	reader.onload = function (e) {
+		const img = document.createElement('img');
+		img.src = e.target.result;
+		img.alt = 'Image';
+		imgContainer.appendChild(img);
+	};
+
+	reader.readAsDataURL(file);
+
+	//Saving the actual File object
+	uploadedFiles.push(file);
 }
 
 function createJS() {
-    const loginButton = document.getElementById("startButton");
-    loginButton.addEventListener("click", startGame);
+	const loginButton = document.getElementById("startButton");
+	loginButton.addEventListener("click", startGame);
 }
 
 createJS();

@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 from .player import Player
 from typing import Dict
+
 import random
+import image_process as ic
 
 class Room:
     players: Dict[str, Player]
@@ -12,7 +14,7 @@ class Room:
 
     def __init__(self):
         self.players = {}
-        self.objects = {"1":"sf", "2":"as", "3":"fd"}
+        self.objects = {}
         self.riddle_count = 0
         self.end_time = datetime.now()
 
@@ -23,11 +25,11 @@ class Room:
 
 
     def get_player_riddle(self, playerID):
-        return list(self.objects.values())[self.players[playerID].riddle_permutation[0]]
+        return self.objects[self.players[playerID].riddle_permutation[0]]["riddle"]
     
 
     def get_player_object(self, playerID):
-        return list(self.objects.keys())[self.players[playerID].riddle_permutation[0]]
+        return self.objects[self.players[playerID].riddle_permutation[0]]["name"]
     
     
     def get_current_duration(self):
@@ -48,6 +50,7 @@ class Room:
 
     def start_game(self, data):
         # data['images'] proccess and get {object : riddle} in objects
+        self.objects = ic.create_riddle_all([img for img in data['images']], mode='chatgpt')
         self.end_time = datetime.now() + timedelta(minutes = int(data['duration']))
         self.riddle_count = int(data['treasure_count'])
 

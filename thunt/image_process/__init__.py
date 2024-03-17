@@ -98,7 +98,7 @@ def create_riddle(obj, mode):
     return out.decode('ascii').strip()
 
 
-def create_riddle_all(images, mode):
+def create_riddle_all(images, mode='mock'):
     objects = list(set([
         obj
         for img in images

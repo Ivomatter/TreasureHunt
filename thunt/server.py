@@ -5,6 +5,9 @@ from werkzeug.exceptions import RequestEntityTooLarge
 from werkzeug.datastructures import FileStorage
 from game_state import *
 
+import os
+import tempfile
+
 requestProcessor = RequestProcessor()
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16MB
@@ -39,10 +42,31 @@ def create_game():
 
 @app.route('/start_game', methods=['POST'])
 def start_game():
-    
-    print(request.json)
-    resp = requestProcessor.get_response(request.json)
-    print(resp)
+    request_data = request.form.get('request')
+    user = request.form.get('user')
+    room = request.form.get('room')
+    duration = request.form.get('duration')
+    treasure_count = request.form.get('treasure_count')
+
+    images = []
+
+    for i in range(20): 
+        if 'file' + str(i) in request.files:
+            file = request.files['file' + str(i)]
+            _, file_extension = os.path.splitext(file.filename)
+            temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=file_extension)
+            file.save(temp_file.name)
+            images.append(temp_file.name)
+
+    body = {
+        'request': 'start_game',
+        'user': user,
+        'room': room,
+        'duration': duration,
+        'treasure_count': treasure_count,
+        'images': images
+    }
+    resp = requestProcessor.get_response(body)
     return resp
 
 def allowed_file(filename):
