@@ -4,7 +4,7 @@
 <head>
   <title>Start</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Truculenta:opsz,wght@12..72,100..900&display=swap" rel="stylesheet">
@@ -19,6 +19,39 @@
   <div class="centerContent">
     <div class="heading-container">
       <h1>Name</h1>
+
+      <style>
+        svg.logoSVG>* {
+          stroke: black;
+          fill: var(--module-background-color);
+        }
+      </style>
+      <svg class="logoSVG" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+        <rect fill="#fff" stroke="#000" stroke-width="3" opacity="1.0" x="30" y="100" width="140" height="70" />
+        <path fill="#fff" stroke="#000" stroke-width="3" opacity="1.0" d="M 40 100 L 30 60 L 170 60 L 160 100 Z">
+          <animate attributeName="d" values="M 40 100 L 30 60 L 170 60 L 160 100 Z;
+          M 40 100 L 30 100 L 170 100 L 160 100 Z;
+          M 40 100 L 30 60 L 170 60 L 160 100 Z" dur="5s" repeatCount="indefinite" />
+        </path>
+        <path fill="#fff" stroke="#000" stroke-width="3" opacity="1.0" d="m 44.38741,99.68291 c15.49864,-22.83133 19.16498,-4.99956 35.83019,-12.4989c16.6652,-7.49934 15.66529,-6.66608 32.83045,-0.66661c17.16516,5.99947 16.49855,-9.49917 31.66389,2.33313c15.16534,11.83229 8.16595,6.83273 14.33208,10.99903l-114.6566,-0.16665l-0.00001,0z" />
+        <path fill="#fff" stroke="#000" stroke-width="3" opacity="1.0" d="M 30 60 L 30 40 L 40 30 L 160 30 L 170 40 L 170 60 Z">
+          <animate attributeName="d" values="M 30 60 L 30 40 L 40 30 L 160 30 L 170 40 L 170 60 Z;
+          M 30 100 L 30 80 L 40 70 L 160 70 L 170 80 L 170 100 Z;
+          M 30 60 L 30 40 L 40 30 L 160 30 L 170 40 L 170 60 Z" dur="5s" repeatCount="indefinite" />
+        </path>
+        <rect fill="#fff" stroke="#000" stroke-width="3" opacity="1.0" x="88" y="100" width="24" height="32" />
+        <rect fill="none" stroke="#000" stroke-width="3" opacity="1.0" x="98" y="118" width="4" height="6" />
+        <rect fill="#fff" stroke="#000" stroke-width="3" opacity="1.0" x="88" y="46" width="24" height="14">
+          <animate attributeName="y" values="46;86;46" dur="5s" repeatCount="indefinite" />
+        </rect>
+        <rect fill="#fff" stroke="#000" stroke-width="3" opacity="1.0" x="94" y="58" width="12" height="10">
+          <animate attributeName="y" values="58;98;58" dur="5s" repeatCount="indefinite" />
+        </rect>
+        <ellipse fill="#fff" stroke="#000" stroke-width="3" cx="100" cy="110" id="svg_5" rx="7" ry="7" />
+        <path fill="#fff" stroke="#000" stroke-width="3" opacity="1.0" d=" M 30 140 A 30 30 0 0 1 60 170 " />
+        <path fill="#fff" stroke="#000" stroke-width="3" opacity="1.0" d=" M 140 170 A 30 30 0 0 1 170 140" />
+      </svg>
+
     </div>
 
     <!-- TODO: make disabled look differently -->
@@ -34,4 +67,5 @@
 </body>
 
 <script src="../static/newGame.js"></script>
+
 </html>
