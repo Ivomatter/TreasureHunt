@@ -4,7 +4,7 @@ Then an AI would find the objects that are present in the pictureas.
 In the end, different model would create riddles for these objects.
 Multiple players can enter each room with a code given when creating it.
 
-To start the server,
+To start the server, make sure you have the latest version of Python installed, then:
 1. clone repository and cd to ./thunt
 2. Create a venv: python -m venv ./.venv
 3. Select venv as active environment and activate it: ./.venv/scripts/activate
